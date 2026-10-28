@@ -1,155 +1,146 @@
 # What Makes a Story Stick?
 
-### Decoding Critical and Audience Reception in Film and Literature
+### Critic and audience reception of films and books
 
-**Team 4** - QAC Project 3  
-Michael-Andre Odusami · Saveer Pande · Daniel Abaye · Anthony Laryukhin
+Do the words in a review predict the rating it gives, and where do critics and audiences disagree? This project scrapes about 180,000 reviews from **Goodreads** (books) and **Rotten Tomatoes** (films, with separate critic and audience voices), cleans them, and tests each claim on data the model has never seen.
+
+## Key findings
+
+**1. Review text explains about half of reader and audience ratings on unseen titles, and about a quarter of critic ratings.** On a held-out 20% of books and films, TF-IDF + Ridge reaches R² 0.48 on Goodreads, 0.56 for RT audiences and 0.29 for RT critics.
+
+![Class-version R² vs. held-out R²](figures/heldout-r2.png)
+
+| R² | Goodreads | RT audience | RT critics |
+|---|---|---|---|
+| Class version, scored on its own training data | 0.52 | 0.78 | 0.64 |
+| Class version, held-out titles | 0.47 | 0.31 | 0.05 |
+| Baseline: the title's published average | 0.06 | 0.30 | 0.50 |
+| **Ridge on review text, held-out titles** | **0.48** | **0.56** | **0.29** |
+
+**2. The original numbers were mostly overfitting.** The class version scored its models on their training data. On new films, its critic model falls from 0.64 to 0.05.
+
+**3. Readers disagree about the same book; critics converge on a film.** Which book a review is about explains 6% of Goodreads ratings, against 48% from the words. For critics, the film's average critic score (0.50) predicts better than the critic's own words (0.29).
+
+**4. Critics and audiences speak differently.** Critics' negative words are craft diagnoses (*inept*, *incoherent*, *misfire*, *fails*) with coefficients about half the size of audiences' blunt verdicts (*worst*, *garbage*, *terrible*). On Goodreads, *dnf* ("did not finish") is the strongest signal of a low rating.
+
+**5. Horror and documentaries split critics from audiences the most.** Critics score both about 16 points higher than audiences (on a 0–100 scale), while audiences favor biographies, music films and romance by 9–10 points. Genre alone explains only 8–14% of film scores.
+
+![Genres associated with critic–audience disagreement](figures/genre-gap.png)
+
+**6. The model misses pans that skip pan words.** In the 60 worst predictions: negation ("not a great movie"), sarcasm, objections to a book's message, and witty critic put-downs. That points to word-order-aware models next.
 
 ---
 
-## Overview
+## Research questions
 
-This project investigates what separates universally beloved stories from critically panned ones, using data scraped from three major review platforms: **Goodreads**, **Rotten Tomatoes**, and **Letterboxd**. We combine web scraping, data cleaning, TF-IDF text analysis, and multi-label regression to answer two core research questions:
+1. **Review language and reception.** Do the words reviewers use predict the rating they give, on held-out titles? Do critics, audiences and readers signal approval with different words?
+2. **Genre and the critic–audience split.** Which genres are associated with higher or lower ratings, and which genres do critics and audiences disagree on?
 
-1. **Review Language & Reception** - Do the specific words used in reviews predict ratings? Are there lexical signatures that distinguish critic approval from audience approval?
-2. **Genre & Trope Performance** - Which genres consistently receive high vs. low ratings, and does this differ between film and literature? Where do critics and audiences systematically disagree?
+Question 2 is a first pass. Three sharper questions are proposed to replace it (see [Next questions](#next-questions)).
 
 ---
 
-## Repository Structure
+## Data
+
+Scraped in spring 2026. Sizes are after `data-cleaning.ipynb`.
+
+| Dataset | Rows | Key fields |
+|---|---|---|
+| Goodreads books | 4,997 books | average rating, 1–5 star counts, genres, description |
+| Goodreads reviews | 135,361 reviews (127,040 English) | rating (1–5), review text |
+| Rotten Tomatoes movies | 3,001 films (2,454 with both scores) | Tomatometer, audience score, genres, release year, runtime, content rating |
+| RT critic reviews | 25,136 reviews | rating (parsed to 0–5), fresh/rotten, review text |
+| RT audience reviews | 15,264 reviews | score (0.5–5), review text |
+
+The raw and cleaned CSVs are not in the repo. Scraped review text isn't mine to redistribute, and the Goodreads reviews file alone is about 370 MB.
+
+---
+
+## Repository
 
 ```
-├── data-collection.ipynb   # Web scraping infrastructure and pipeline (Goodreads, Rotten Tomatoes, Letterboxd)
-├── data-cleaning.ipynb     # Data cleaning, normalization, and feature engineering
-├── main.ipynb              # Analysis, visualizations, and research conclusions
-├── data/
-│   ├── goodreads-books.csv
-│   ├── goodreads-reviews.csv
-│   ├── rotten-tomatoes-movies.csv
-│   ├── rotten-tomatoes-critic-reviews.csv
-│   ├── rotten-tomatoes-audience-reviews.csv
-│   ├── combined_letterboxd_tables.csv
-│   └── cleaned/            # Output of data-cleaning.ipynb
-│       ├── cleaned_goodreads_books.csv
-│       ├── cleaned_goodreads_reviews.csv
-│       ├── cleaned_rotten_tomatoes_movies.csv
-│       ├── cleaned_rotten_tomatoes_critic_reviews.csv
-│       ├── cleaned_rotten_tomatoes_audience_reviews.csv
-│       └── cleaned_letterboxd_movies.csv
+├── data-collection.ipynb   # Scrapers for Goodreads and Rotten Tomatoes -> data/*.csv
+├── data-cleaning.ipynb     # Dedupe, join keys, language detection, text and rating cleaning, quality checks -> data/cleaned/
+├── main.ipynb              # Analysis: held-out text models, word and genre associations with intervals
+├── requirements.txt        # Pinned dependencies (tested on Python 3.14)
+├── figures/                # Charts used in this README, exported from main.ipynb
+└── data/                   # Not committed
+    ├── goodreads-books.csv, goodreads-reviews.csv
+    ├── rotten-tomatoes-movies.csv, rotten-tomatoes-critic-reviews.csv, rotten-tomatoes-audience-reviews.csv
+    └── cleaned/            # Written by data-cleaning.ipynb
 ```
 
 ---
 
-## Datasets
+## Method
 
-| Dataset                     | Size (after cleaning) | Key Fields                                          |
-| --------------------------- | --------------------- | --------------------------------------------------- |
-| Goodreads Books             | 5,788 books           | avg_rating, genres, description, author             |
-| Goodreads Reviews           | 140,576 reviews       | rating (1–5), review_text                           |
-| Rotten Tomatoes Movies      | 3,001 films           | tomatometer, audience_score, genres, consensus text |
-| RT Critic Reviews           | 25,137 reviews        | rating (parsed to 0–5), sentiment, review_text      |
-| RT Audience Reviews         | 15,266 reviews        | score, review_text                                  |
-| Letterboxd (Top/Bottom 500) | 1,000 films           | rating (0–5), genres, tier                          |
+### Collection (`data-collection.ipynb`)
 
----
+- Shared scraping layer: sync and async HTTP clients with exponential backoff, rotating user agents, handling for rate limits (429/403) and `Retry-After`, and a global pause so one rate-limit response pauses every concurrent request.
+- Plugin design (`BaseDiscoverer`, `BaseDetailScraper`, `BasePipeline`), so a new source is a few subclasses.
+- **Goodreads:** discovers Listopia lists by genre tag, then scrapes book pages asynchronously through the embedded `__NEXT_DATA__` Apollo cache.
+- **Rotten Tomatoes:** Playwright for the JavaScript browse pages (on a background thread) feeding an async queue of detail and review scrapes.
+- Resumable: discovered listings are cached to JSON, and CSVs are written in append mode.
 
-## Notebook Descriptions
+### Cleaning (`data-cleaning.ipynb`)
 
-### `data-collection.ipynb`
+- **Deduplication by ID,** not exact row. The same book scraped from several lists had slightly different counts, so exact matching missed 789 duplicate books and about 5,200 duplicate reviews.
+- **Join keys:** reviews link to books by `book_id` and to films by URL, not by title (21 Goodreads titles belong to more than one book).
+- **Language:** each review is labeled with [Lingua](https://github.com/pemistahl/lingua-py) (30 candidate languages, run on the raw text).
+- **Text:** HTML, URLs and mojibake are removed. Accents are transliterated (`cliché` → `cliche`) rather than deleted, and remaining non-ASCII is removed.
+- **Critic ratings:** `parse_critic_rating` turns 15+ formats (`3/5`, `B+`, `3 1/2 stars`, `7/10`, `Must Watch`, ...) into 0–5 and rejects off-scale values like `7.5/5`.
+- **One 0–1 scale:** Goodreads (r − 1) / 4, RT audience (s − 0.5) / 4.5, critics r / 5.
+- **Quality checks** fail the notebook if keys repeat, joins break, ratings leave 0–1, or text isn't clean.
 
-Handles all data acquisition. Key components:
+### Analysis (`main.ipynb`)
 
-- **Shared scraping infrastructure** - `SyncHttpClient` and `AsyncHttpClient` with exponential backoff, rotating user agents, rate-limit handling (429/403), and Cloudflare bypass. Built on an abstract plugin architecture (`BaseDiscoverer`, `BaseDetailScraper`, `BasePipeline`) so new sources can be added by subclassing.
-- **Goodreads pipeline** - Three-phase: (1a) sync crawl of genre-tagged Listopia index pages, (1b) async scraping of individual list pages into a shared queue, (2) async detail scraping of book pages via the embedded `__NEXT_DATA__` Apollo GraphQL cache. Outputs `goodreads-books.csv` and `goodreads-reviews.csv`.
-- **Rotten Tomatoes pipeline** - Uses **Playwright** for JS-rendered browse pages (Phase 1, runs in a background thread), then `aiohttp` for detail + review pages (Phase 2, async). Outputs three CSVs: movies, critic reviews, and audience reviews. _Note: Playwright does not run in Google Colab - run this notebook locally._
-- **Letterboxd scraper** - Scrapes the official Letterboxd Top 500 and the Anti-Letterboxd Bottom 500 lists using `requests` + `BeautifulSoup`, fetching film metadata and engagement stats via a separate CSI endpoint.
-- **Resume support** - All pipelines cache discovered listings to JSON and use `CsvWriter`'s append mode, so a crashed run can be resumed without re-scraping.
-
-### `data-cleaning.ipynb`
-
-Prepares the raw CSVs for analysis:
-
-- Drops duplicates and selects only the columns needed for analysis
-- Handles missing values: drops rows with no usable key (book ID, avg rating); fills categoricals with `'Unknown'`; fills counts with 0
-- Cleans review text: strips HTML tags, URLs, and encoding artifacts (`â€™`, `\xa0`, etc.); collapses whitespace; drops reviews under 5 words
-- Normalizes all ratings to a common 0–1 scale for cross-platform comparison
-- Parses RT critic ratings from 15+ mixed formats (fractions, letter grades, star counts, percentages, word numbers) into a uniform 0–5 float
-- Adds join-friendly normalized title columns (lowercase, article-stripped) for linking reviews to their parent titles
-- Parses genre strings (pipe-separated for Goodreads/RT, comma-separated for Letterboxd) into Python lists
-- Saves all six cleaned datasets to `data/cleaned/`
-
-### `main.ipynb`
-
-Loads the cleaned datasets and runs the full analysis:
-
-**Research Question 1 - Review Language & Reception**
-
-- Filters to English-only reviews using a common-word-ratio heuristic
-- Fits TF-IDF (5,000 features, unigrams + bigrams) + Linear Regression per platform; extracts the 20 strongest positive and negative word predictors
-- Splits reviews into High (≥75th percentile) and Low (≤25th percentile) rating tiers and compares word-frequency profiles
-- Builds a cross-platform heatmap comparing how the same words predict ratings differently for Goodreads, RT Audience, and RT Critics
-- Reports R² per platform: Goodreads (0.52), RT Critics (0.60), RT Audience (0.75)
-
-**Research Question 2 - Genre & Trope Performance**
-
-- Encodes multi-label genre lists with `MultiLabelBinarizer`, then fits Linear Regression to predict normalized ratings
-- Three parallel models: Letterboxd score, Goodreads avg_rating, and RT (critics vs. audience side-by-side)
-- Produces a cross-medium genre impact heatmap showing which genres win and lose across all four rating voices
+- **Held-out by title.** 20% of books and films are held out, so every test review is of a title the model never saw.
+- **Baselines.** Predict the average; predict the title's published average.
+- **TF-IDF + Ridge,** with the penalty chosen by 5-fold cross-validation grouped by title, compared with the class version's unregularized regression scored both ways.
+- **95% bootstrap intervals** (titles resampled 200 times) on every word coefficient. Only words whose interval excludes zero are interpreted.
+- **Error analysis** of the 20 worst held-out predictions per platform.
+- **Genre models** on films with both scores (no median-filling), genres with 30+ titles, and the critic − audience gap modeled directly, with repeated-CV R² and 1,000-resample intervals.
 
 ---
 
-## Setup & Usage
-
-### Prerequisites
+## Setup
 
 ```bash
-pip install aiohttp requests beautifulsoup4 lxml nest_asyncio playwright pandas numpy scikit-learn matplotlib seaborn curl_cffi
-playwright install chromium
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/playwright install chromium     # only needed to re-scrape Rotten Tomatoes
 ```
 
-For Colab, also install system deps for Playwright:
+Run the notebooks in order: `data-collection.ipynb` → `data-cleaning.ipynb` → `main.ipynb`. With the raw CSVs already in `data/`, skip collection. On a laptop, cleaning takes about 1.5 minutes and the analysis about 4.
 
-```bash
-apt-get install -y libatk1.0-0 libatk-bridge2.0-0 libcups2 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2 libnspr4 libnss3
+To scrape, run one cell at the bottom of `data-collection.ipynb`:
+
+```python
+run_pipelines(["goodreads"])
+run_pipelines(["rottentomatoes"])
 ```
-
-> **Note:** The Rotten Tomatoes scraper requires Playwright and must be run in a local environment, not Google Colab.
-
-### Running the Notebooks (in order)
-
-1. **`data-collection.ipynb`** - Run the cell at the bottom to launch a pipeline. Uncomment the source(s) you want:
-
-   ```python
-   run_pipelines(["goodreads"])          # Goodreads only
-   run_pipelines(["rottentomatoes"])     # RT only (local env required)
-   run_pipelines(["goodreads", "rottentomatoes"])  # Both
-   ```
-
-   Raw CSVs will be written to the `data/` directory (configurable via `DATA_DIR`).
-
-2. **`data-cleaning.ipynb`** - Run all cells. Reads from `data/`, writes cleaned CSVs to `data/cleaned/`.
-
-3. **`main.ipynb`** - Run all cells. Loads from `data/cleaned/` and produces all analysis charts.
-
-If you already have the cleaned CSVs, you can skip straight to `main.ipynb`.
 
 ---
 
-## Key Findings
+## Next questions
 
-**Review language predicts ratings across all platforms.** The strongest Goodreads predictor is `dnf` (did not finish) at −0.77, followed by skepticism words like _supposedly_ and _apparently_. Critics use diagnostic language (_surface level_, _devoid_, _soulless_) while audiences use simpler emotional terms (_boring_, _loved_, _waste_).
+Genre turned out to be a weak predictor, so three questions replace Question 2 (details at the end of `main.ipynb`):
 
-**Genre effects are real but platform-dependent.** Drama and Animation consistently score well across film platforms; Horror carries a large negative coefficient for film but not for literature, where horror readers are a self-selected enthusiast audience. Documentary and Art House genres are rewarded far more by RT critics than by general audiences.
-
-**Critics and audiences speak differently.** The RT critic/audience split is most visible in the cross-platform genre heatmap: critics heavily reward Documentary and Variety content; audiences are relatively more tolerant of Horror and Action.
+1. **Where do critics and audiences disagree, and can we predict it?** Model the critic − audience gap for 2,454 films from genre, content rating, runtime, year, language, review volume and review text, and flag films likely to split by 20+ points. Early signal: PG-13 films average 12.8 points lower with critics than with audiences.
+2. **What makes a book divisive?** Holding the average rating fixed, which books polarize readers (spread of 1–5 star ratings across 4,510 books)? Do genre, length, age or the book's description explain it?
+3. **Do critics and audiences reward different things?** Tag review sentences for acting, writing, pacing, visuals and endings with a zero-shot model, and test whether aspect sentiment relates to ratings differently for critics and audiences.
 
 ---
 
-## Credits
+## Limitations
 
-| Contributor           | Work                                                                                                                 |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Michael-Andre Odusami | Scraping infrastructure, Goodreads scraper, Rotten Tomatoes scraper, data cleaning, text analytics, lexical analysis |
-| Daniel Abaye          | Letterboxd scraper, data cleaning, data analysis & visualization, genre analysis                                     |
-| Saveer Pande          | QAC formatting                                                                                                       |
-| Anthony Laryukhin     | Additional contributions                                                                                             |
+- **Not a random sample.** Books come from popular Goodreads lists and films from RT browse pages, so ratings skew high.
+- **Thin RT reviews.** The median film has about 10 critic and 6 audience reviews in this data.
+- **English only** for the text models.
+- **TF-IDF ignores word order** beyond two-word phrases.
+- **Associations, not effects.** Coefficients describe which titles and reviews tend to score higher, not what would change a rating.
+- **One snapshot.** Scores drift as reviews accumulate, especially for recent releases.
+
+---
+
+Started as a group class project and rebuilt (cleaning, evaluation and analysis) by Michael-Andre Odusami.
