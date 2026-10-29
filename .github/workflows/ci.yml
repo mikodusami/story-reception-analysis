@@ -17,7 +17,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
       - name: Install package and test tools
-        run: pip install -e ".[dev,language,warehouse]"
+        run: pip install -e ".[dev,language,warehouse,scrape]"
       - name: Lint
         run: ruff check src tests
       - name: Test

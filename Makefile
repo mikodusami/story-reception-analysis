@@ -2,7 +2,7 @@ VENV ?= .venv
 PY := $(VENV)/bin/python
 NB := $(VENV)/bin/jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=5400
 
-.PHONY: help setup test lint clean-data warehouse analysis all
+.PHONY: help setup test lint scrape clean-data warehouse analysis all
 
 help:  ## List targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-12s %s\n", $$1, $$2}'
@@ -17,6 +17,9 @@ test:  ## Run unit tests (data checks run only if data/cleaned exists)
 
 lint:  ## Lint the package and tests
 	$(PY) -m ruff check src tests
+
+scrape:  ## Scrape into data/ (SOURCES="goodreads rottentomatoes"; takes hours; run playwright install chromium first)
+	$(PY) -m story_reception.scrape $(SOURCES)
 
 clean-data:  ## Rebuild data/cleaned/ from the raw CSVs in data/ (about 1.5 min)
 	$(NB) data-cleaning.ipynb

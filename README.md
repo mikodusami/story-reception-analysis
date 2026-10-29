@@ -24,7 +24,7 @@ Do the words in a review predict the rating it gives, and where do critics and a
 | Held-out R² | Goodreads | RT audience | RT critics |
 |---|---|---|---|
 | **Ridge** | **0.48** | **0.56** | **0.29** |
-| Lasso | LASSO_GR | LASSO_AUD | LASSO_CRIT |
+| Lasso | 0.48 | 0.56 | 0.26 |
 | Random forest | 0.33 | 0.51 | 0.23 |
 | Gradient boosting | 0.40 | 0.49 | 0.15 |
 | Linear regression (OLS) | 0.48 | 0.40 | 0.06 |
@@ -32,7 +32,7 @@ Do the words in a review predict the rating it gives, and where do critics and a
 
 ![Held-out R² by model](figures/model-comparison-r2.png)
 
-Ridge wins on every platform. LASSO_SENTENCE As a yes/no question (positive review or not), logistic regression and Naive Bayes reach ROC-AUC 0.83–0.91, and a single decision tree trails every other model. Ratings are a sum of many small word signals, which suits a linear model. Each tree split can only ask about one word, and any one word separates out only a small share of reviews. Scores hold up on reviewers the model never saw, so the models aren't leaning on who wrote the review.
+Ridge wins on every platform, and Lasso nearly ties it while keeping only a quarter to half of the 5,000 terms. As a yes/no question (positive review or not), logistic regression and Naive Bayes reach ROC-AUC 0.83–0.91, and a single decision tree trails every other model. Ratings are a sum of many small word signals, which suits a linear model. Each tree split can only ask about one word, and any one word separates out only a small share of reviews. Scores hold up on reviewers the model never saw, so the models aren't leaning on who wrote the review.
 
 **4. Readers disagree about the same book; critics converge on a film.** Which book a review is about explains 6% of Goodreads ratings, against 48% from the words. For critics, the film's average critic score (0.50) predicts better than the critic's own words (0.29).
 
@@ -74,13 +74,13 @@ The raw and cleaned CSVs are not in the repo. Scraped review text isn't mine to 
 ## Repository
 
 ```
-├── data-collection.ipynb   # Scrapers for Goodreads and Rotten Tomatoes -> data/*.csv
+├── data-collection.ipynb   # Runs the scrapers in src/story_reception/scrape/ -> data/*.csv
 ├── data-cleaning.ipynb     # Dedupe, join keys, language detection, text and rating cleaning, quality checks -> data/cleaned/
 ├── main.ipynb              # Analysis: held-out text models, model-family comparison, word and genre associations with intervals
-├── src/story_reception/    # Cleaning helpers (critic-rating parser, text cleaner, language detection) used by data-cleaning.ipynb
+├── src/story_reception/    # scrape/ (Goodreads + RT pipelines), clean.py, language.py, warehouse.py
 ├── sql/                    # DuckDB warehouse: staging/ loads CSVs, models/ builds tables, checks/ are data-quality rules
 ├── tests/                  # pytest: every critic-rating format, text cleaning, and a check against data/cleaned/ when present
-├── Makefile                # make setup | test | lint | clean-data | warehouse | analysis
+├── Makefile                # make setup | test | lint | scrape | clean-data | warehouse | analysis
 ├── pyproject.toml          # Package metadata and ruff settings
 ├── requirements.txt        # Pinned dependencies (tested on Python 3.14); requirements-dev.txt adds pytest and ruff
 ├── .github/workflows/      # CI: lint and tests on Python 3.12 and 3.14
@@ -95,7 +95,7 @@ The raw and cleaned CSVs are not in the repo. Scraped review text isn't mine to 
 
 ## Method
 
-### Collection (`data-collection.ipynb`)
+### Collection (`src/story_reception/scrape/`)
 
 - Shared scraping layer: sync and async HTTP clients with exponential backoff, rotating user agents, handling for rate limits (429/403) and `Retry-After`, and a global pause so one rate-limit response pauses every concurrent request.
 - Plugin design (`BaseDiscoverer`, `BaseDetailScraper`, `BasePipeline`), so a new source is a few subclasses.
@@ -156,11 +156,11 @@ Without `make`: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
 
 Run the notebooks in order: `data-collection.ipynb` → `data-cleaning.ipynb` → `main.ipynb` (or `make clean-data analysis`). With the raw CSVs already in `data/`, skip collection. On a laptop, cleaning takes about 1.5 minutes and the analysis about 15 (mostly the tree models and Lasso on 98k Goodreads reviews).
 
-To scrape, run one cell at the bottom of `data-collection.ipynb`:
+To scrape (hours per source; check each site's terms first):
 
-```python
-run_pipelines(["goodreads"])
-run_pipelines(["rottentomatoes"])
+```bash
+.venv/bin/python -m story_reception.scrape goodreads rottentomatoes --output-dir data
+# or: make scrape SOURCES=goodreads, or uncomment a line in data-collection.ipynb
 ```
 
 ---

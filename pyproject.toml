@@ -5,13 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "story-reception"
 version = "0.1.0"
-description = "Critic and audience reception of films and books: cleaning helpers for the analysis notebooks"
+description = "Critic and audience reception of films and books: scrapers, cleaning helpers and a DuckDB warehouse"
 requires-python = ">=3.12"
 dependencies = ["pandas>=2.2", "numpy>=2.0"]
 
 [project.optional-dependencies]
 language = ["lingua-language-detector>=2.0"]
 warehouse = ["duckdb>=2.0"]
+scrape = ["aiohttp>=3.9", "requests>=2.31", "beautifulsoup4>=4.12", "lxml>=5", "nest-asyncio>=1.6", "playwright>=1.40"]
 dev = ["pytest>=8", "ruff>=0.6"]
 
 [tool.setuptools.packages.find]
