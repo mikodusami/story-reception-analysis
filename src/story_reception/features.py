@@ -1,4 +1,4 @@
-"""Film features for the critic–audience gap models (RQ2).
+"""Features for the critic–audience gap models (RQ2) and the book divisiveness models (RQ3).
 
 Features are split by when they become known:
 
@@ -28,6 +28,15 @@ def genre_lists(films: pd.DataFrame) -> pd.Series:
     return films['genres'].fillna('').map(lambda g: [x.strip() for x in g.split('|') if x.strip()])
 
 
+def genre_flags(genres: pd.Series, min_titles: int) -> pd.DataFrame:
+    """One 0/1 column per genre on at least min_titles titles, most common first."""
+    counts = pd.Series([g for gl in genres for g in gl], dtype=object).value_counts()
+    keep = counts[counts >= min_titles].index
+    dummies = genres.map('|'.join).str.get_dummies(sep='|')
+    return (dummies.reindex(columns=keep, fill_value=0).astype(int)
+            .rename(columns=lambda g: f'genre: {g}').set_axis(genres.index))
+
+
 def content_rating_group(s: pd.Series) -> pd.Series:
     """MPAA rating, with all TV ratings pooled as 'TV' and missing as 'Unrated'."""
     s = s.fillna('Unrated').astype(str).str.strip()
@@ -36,12 +45,8 @@ def content_rating_group(s: pd.Series) -> pd.Series:
 
 def pre_release_features(films: pd.DataFrame, min_genre_films: int = 30, top_languages: int = 8) -> pd.DataFrame:
     """One row per film: genre flags, content rating, runtime, release year/month, language flags."""
-    out = pd.DataFrame(index=films.index)
-
     genres = genre_lists(films)
-    counts = pd.Series([g for gl in genres for g in gl]).value_counts()
-    for genre in counts[counts >= min_genre_films].index:
-        out[f'genre: {genre}'] = genres.map(lambda gl, g=genre: int(g in gl))
+    out = genre_flags(genres, min_genre_films)
     out['genre count'] = genres.str.len()
 
     rating = content_rating_group(films['content_rating'])
@@ -78,7 +83,80 @@ def feature_family(column: str) -> str:
         return column.split(':', 1)[0]
     families = {'genre count': 'genre', 'runtime (min)': 'runtime', 'release year': 'release timing',
                 'release month': 'release timing', 'log critic count': 'popularity',
-                'log audience count': 'popularity'}
+                'log audience count': 'popularity', 'log pages': 'length', 'publication year': 'publication year',
+                'in a series': 'series', 'series position': 'series', 'first in series': 'series',
+                'box set or omnibus': 'series',
+                'log ratings count': 'popularity', 'award wins': 'awards', 'award nominations': 'awards',
+                'star mean': 'average rating'}
     if column.startswith(('summer release', 'holiday release')):
         return 'release timing'
     return families.get(column, 'synopsis' if column.startswith(('synopsis', 'svd', 'emb')) else column)
+
+
+# ── Books (RQ3: divisiveness) ────────────────────────────────────────────────
+
+STARS = np.arange(1, 6)
+
+
+def star_stats(books: pd.DataFrame) -> pd.DataFrame:
+    """From the 1-5 star counts: number of ratings, mean, standard deviation, and polarization shares."""
+    counts = books[[f'rating_dist_{i}' for i in STARS]].apply(pd.to_numeric, errors='coerce').fillna(0).to_numpy()
+    n = counts.sum(axis=1)
+    with np.errstate(invalid='ignore', divide='ignore'):
+        mean = counts @ STARS / n
+        sd = np.sqrt((counts * (STARS[None, :] - mean[:, None]) ** 2).sum(axis=1) / n)
+        low, five = counts[:, :2].sum(axis=1) / n, counts[:, 4] / n
+    return pd.DataFrame({'star count': n, 'star mean': mean, 'star sd': sd,
+                         'share 1-2 stars': low, 'share 5 stars': five}, index=books.index)
+
+
+def first_number(s: pd.Series) -> pd.Series:
+    """'1-4' -> 1, '2.5' -> 2.5, '' -> NaN."""
+    return pd.to_numeric(s.fillna('').astype(str).str.extract(r'(\d+(?:\.\d+)?)', expand=False), errors='coerce')
+
+
+def book_features(books: pd.DataFrame, min_genre_books: int = 30) -> pd.DataFrame:
+    """Known at publication: reader genre tags, length, publication year, series membership."""
+    genres = genre_lists(books)
+    out = genre_flags(genres, min_genre_books)
+    out['genre count'] = genres.str.len()
+    # Caps keep a few bad or unusual values from dominating linear models: comic issue numbers as series
+    # positions (404), box sets of 6,000+ pages, and edition years like 1812 for a 2000s omnibus (the only
+    # pre-1900 year among modelled books; it can't be told apart from a real 1812 edition, so it's capped).
+    pages = pd.to_numeric(books['num_pages'], errors='coerce')
+    out['log pages'] = np.log(pages.where(pages > 0).clip(20, 2000))
+    out['publication year'] = pd.to_numeric(books['publication_year'], errors='coerce').clip(lower=1900)
+    in_series, box_set, position = _series_parts(books)
+    out['in a series'] = in_series.astype(int)
+    out['series position'] = position.clip(upper=30)
+    out['first in series'] = (position == 1).astype(int)
+    out['box set or omnibus'] = box_set.astype(int)
+    return out
+
+
+def _series_parts(books: pd.DataFrame):
+    in_series = books['series_name'].fillna('').astype(str).str.strip() != ''
+    text = books['series_position'].fillna('').astype(str).str.strip()
+    box_set = in_series & text.str.contains(r'\d\s*[-–&,]\s*\d', regex=True)   # '1-4', '16-17, 21', '1 & 7'
+    # NaN if standalone, a box set, or no number given
+    position = first_number(text).where(in_series & ~box_set)
+    return in_series, box_set, position
+
+
+def series_status(books: pd.DataFrame) -> pd.Series:
+    """'standalone', 'first in a series', 'later in a series', 'box set or omnibus' or 'series, position unknown'."""
+    in_series, box_set, position = _series_parts(books)
+    status = np.select([~in_series, box_set, position == 1, position > 1],
+                       ['standalone', 'box set or omnibus', 'first in a series', 'later in a series'],
+                       'series, position unknown')
+    return pd.Series(status, index=books.index)
+
+
+def book_post_features(books: pd.DataFrame) -> pd.DataFrame:
+    """Known only after publication: popularity and awards."""
+    awards = books['awards'].fillna('').astype(str)
+    return pd.DataFrame({
+        'log ratings count': np.log1p(pd.to_numeric(books['ratings_count'], errors='coerce')),
+        'award wins': awards.str.count(r'\(WINNER\)'),
+        'award nominations': awards.str.count(r'\(NOMINEE\)'),
+    }, index=books.index)

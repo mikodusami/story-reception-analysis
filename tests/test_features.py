@@ -1,13 +1,18 @@
 import math
 
 import pandas as pd
+import pytest
 
 from story_reception.features import (
     LEAKY_COLUMNS,
+    book_features,
+    book_post_features,
     content_rating_group,
     feature_family,
     post_release_features,
     pre_release_features,
+    series_status,
+    star_stats,
 )
 
 FILMS = pd.DataFrame({
@@ -65,3 +70,52 @@ def test_feature_family():
                                         'log audience count', 'synopsis svd 3']] == \
         ['genre', 'genre', 'rated', 'runtime', 'release timing', 'release timing', 'language',
          'popularity', 'synopsis']
+
+
+BOOKS = pd.DataFrame({
+    'rating_dist_1': [1, 50, 0, 0], 'rating_dist_2': [1, 0, 0, 0], 'rating_dist_3': [1, 0, 0, 0],
+    'rating_dist_4': [1, 0, 10, 0], 'rating_dist_5': [1, 50, 0, 0],
+    'genres': ['Fantasy|Fiction', 'Romance', 'Fantasy', None],
+    'num_pages': [300, 0, None, 120], 'publication_year': [2001, 2015, None, 1990],
+    'series_name': ['Saga', '', 'Saga', 'Cycle'], 'series_position': ['1-4', '', '2.5', ''],
+    'ratings_count': [5, 100, 10, 0],
+    'awards': ['Hugo Award (WINNER)|Nebula Award (NOMINEE)|Locus Award (NOMINEE)', '', None, 'X (WINNER)'],
+})
+
+
+def test_star_stats():
+    st = star_stats(BOOKS)
+    assert st['star count'].tolist() == [5, 100, 10, 0]
+    assert st['star mean'].iloc[0] == pytest.approx(3.0)
+    assert st['star sd'].iloc[0] == pytest.approx(math.sqrt(2))   # one rating at each star
+    assert st['star sd'].iloc[1] == pytest.approx(2.0)            # half 1-star, half 5-star: the maximum
+    assert st['star sd'].iloc[2] == pytest.approx(0.0)            # everyone gave 4 stars
+    assert st['share 1-2 stars'].iloc[1] == pytest.approx(0.5)
+    assert st.iloc[3].isna()[['star mean', 'star sd']].all()      # no ratings
+
+
+def test_book_features():
+    X = book_features(BOOKS, min_genre_books=2)
+    assert list(X.filter(like='genre: ').columns) == ['genre: Fantasy']
+    assert X['log pages'].iloc[0] == pytest.approx(math.log(300))
+    assert math.isnan(X['log pages'].iloc[1])                     # 0 pages is treated as missing
+    assert X['in a series'].tolist() == [1, 0, 1, 1]
+    assert X['box set or omnibus'].tolist() == [1, 0, 0, 0]          # '1-4' is a box set, not book 1
+    assert math.isnan(X['series position'].iloc[0]) and X['series position'].iloc[2] == 2.5
+    assert math.isnan(X['series position'].iloc[3])                  # in a series, position unknown
+    assert X['first in series'].tolist() == [0, 0, 0, 0]
+
+
+def test_series_status():
+    books = pd.DataFrame({'series_name': ['', 'S', 'S', 'S', 'S', 'S', None],
+                          'series_position': ['', '1', '3', '1-3', '16-17, 21', ' Webcomic', None]})
+    assert series_status(books).tolist() == ['standalone', 'first in a series', 'later in a series',
+                                             'box set or omnibus', 'box set or omnibus',
+                                             'series, position unknown', 'standalone']
+
+
+def test_book_post_features():
+    P = book_post_features(BOOKS)
+    assert P['award wins'].tolist() == [1, 0, 0, 1]
+    assert P['award nominations'].tolist() == [2, 0, 0, 0]
+    assert P['log ratings count'].iloc[1] == pytest.approx(math.log1p(100))

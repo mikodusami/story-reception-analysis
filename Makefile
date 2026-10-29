@@ -2,7 +2,7 @@ VENV ?= .venv
 PY := $(VENV)/bin/python
 NB := $(VENV)/bin/jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=5400
 
-.PHONY: help setup test lint scrape clean-data warehouse analysis gap all
+.PHONY: help setup test lint scrape clean-data warehouse analysis gap books all
 
 help:  ## List targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-12s %s\n", $$1, $$2}'
@@ -33,4 +33,7 @@ analysis:  ## Rerun main.ipynb and regenerate figures/ (about 15 min)
 gap:  ## Rerun gap-analysis.ipynb (critic-audience gap models, RQ2)
 	$(NB) gap-analysis.ipynb
 
-all: clean-data warehouse analysis gap test  ## Clean, build the warehouse, run both analyses, then test
+books:  ## Rerun divisive-books.ipynb (what makes a book divisive, RQ3)
+	$(NB) divisive-books.ipynb
+
+all: clean-data warehouse analysis gap books test  ## Clean, build the warehouse, run all three analyses, then test

@@ -44,14 +44,39 @@ Ridge wins on every platform, and Lasso nearly ties it while keeping only a quar
 
 **7. The model misses pans that skip pan words.** In the 60 worst predictions: negation ("not a great movie"), sarcasm, objections to a book's message, and witty critic put-downs. That points to word-order-aware models next.
 
+### Where critics and audiences disagree (`gap-analysis.ipynb`)
+
+**8. Critics favor unrated, short, non-English, horror and documentary films; audiences favor PG-13, longer, Hindi-language and widely seen films.** Critics and audiences differ by 20+ points on 46% of the 2,454 films. PG-13 films average 13 points higher with audiences; unrated films 11 points higher with critics; films under 90 minutes 10 points higher with critics; French films 21.
+
+![Average critic − audience gap by group](figures/gap-by-group.png)
+
+**9. Before release, the gap is only partly predictable, but a split can be flagged.** Using only what's known before any review (genre, content rating, runtime, release timing, language, synopsis; no critic or audience scores), a random forest explains 17% of the gap on unseen films, double genre alone (8%). As a warning flag it works better: of the 10% of films it's most sure will split by 20+ points, 78% do, against a 47% base rate. Adding popularity after release lifts R² to 0.25.
+
+![Gap models](figures/gap-models.png)
+
+**10. Many extreme gaps rest on a handful of ratings.** 40% of films have fewer than 50 audience ratings, and some audience scores come from 3. Sampling noise accounts for about 17% of the gap's variance (3–6% for well-rated films), so it doesn't cap the models (R² ceiling about 0.83), but it explains their biggest misses. The results hold on the 1,470 well-rated films.
+
+### What makes a book divisive (`divisive-books.ipynb`)
+
+**11. Subject matter that invites moral judgment splits readers; genre conventions unite them.** Divisiveness is the spread of a book's 1–5 star ratings, adjusted for its average (higher-rated books have less room to spread). Erotic and dark romance, Christian and spiritual books, and books about abuse are the most divisive for their averages; mysteries, detective and crime fiction the least. The most divisive widely read books include the King James Bible, *Fifty Shades of Grey*, *Atlas Shrugged*, *The Secret* and *Twilight*. First books in a series are more divisive than later volumes, likely because readers who disliked book one don't rate book three.
+
+![Most divisive and most consensus genres](figures/divisive-genres.png)
+
+**12. Metadata known at publication explains about a third of the divisiveness the average rating doesn't.** On held-out authors, the average rating alone explains 47% of star spread; gradient boosting on genre tags, length, year and series raises that to 65%, or 34% of what was left (39% with popularity and awards). The publisher's description adds nothing. Results hold with a second measure (share of 1–2 star ratings).
+
+![Divisiveness models](figures/divisive-models.png)
+
 ---
 
 ## Research questions
 
 1. **Review language and reception.** Do the words reviewers use predict the rating they give, on held-out titles? Do critics, audiences and readers signal approval with different words?
 2. **Genre and the critic–audience split.** Which genres are associated with higher or lower ratings, and which genres do critics and audiences disagree on?
+3. **Where do critics and audiences disagree, and can we predict it?** (`gap-analysis.ipynb`) Which film attributes go with the critic − audience gap, and can a model flag, before release, films that will split critics and audiences by 20+ points?
 
-Question 2 is a first pass. Three sharper questions are proposed to replace it (see [Next questions](#next-questions)).
+4. **What makes a book divisive?** (`divisive-books.ipynb`) Holding the average rating fixed, which books split readers instead of converging on a consensus?
+
+Question 2 was a first pass; questions 3 and 4 replace it with sharper versions.
 
 ---
 
@@ -77,10 +102,12 @@ The raw and cleaned CSVs are not in the repo. Scraped review text isn't mine to 
 ├── data-collection.ipynb   # Runs the scrapers in src/story_reception/scrape/ -> data/*.csv
 ├── data-cleaning.ipynb     # Dedupe, join keys, language detection, text and rating cleaning, quality checks -> data/cleaned/
 ├── main.ipynb              # Analysis: held-out text models, model-family comparison, word and genre associations with intervals
-├── src/story_reception/    # scrape/ (Goodreads + RT pipelines), clean.py, language.py, warehouse.py
+├── gap-analysis.ipynb      # Critic − audience gap: pre-release features, nested-CV model ladder, split classifier, noise check
+├── divisive-books.ipynb    # Book divisiveness: star spread adjusted for the average, author-grouped nested CV
+├── src/story_reception/    # scrape/ (Goodreads + RT pipelines), clean.py, language.py, features.py, warehouse.py
 ├── sql/                    # DuckDB warehouse: staging/ loads CSVs, models/ builds tables, checks/ are data-quality rules
 ├── tests/                  # pytest: every critic-rating format, text cleaning, and a check against data/cleaned/ when present
-├── Makefile                # make setup | test | lint | scrape | clean-data | warehouse | analysis
+├── Makefile                # make setup | test | lint | scrape | clean-data | warehouse | analysis | gap | books
 ├── pyproject.toml          # Package metadata and ruff settings
 ├── requirements.txt        # Pinned dependencies (tested on Python 3.14); requirements-dev.txt adds pytest and ruff
 ├── .github/workflows/      # CI: lint and tests on Python 3.12 and 3.14
@@ -142,6 +169,23 @@ FROM books WHERE star_count >= 10000 ORDER BY star_sd DESC LIMIT 5;
 - **Error analysis** of the 20 worst held-out predictions per platform.
 - **Genre models** on films with both scores (no median-filling), genres with 30+ titles, and the critic − audience gap modeled directly, with repeated-CV R² and 1,000-resample intervals. The same model families are compared by nested cross-validation, plus a three-class decision tree for films that split critics and audiences by 20+ points.
 
+### Gap analysis (`gap-analysis.ipynb`)
+
+- **Target:** Tomatometer − audience score for the 2,454 films with both. A second target flags a split of 20+ points either way.
+- **No leakage:** no feature is built from either score (no top-critic score, average ratings, consensus text or sentiment). `features.py` builds pre-release features (genre, content rating, runtime, release year and month, language) and post-release ones (rating counts); a test checks that changing the scores leaves the features unchanged.
+- **Models:** mean baseline, Ridge, random forest and gradient boosting, on metadata alone and with the synopsis as TF-IDF or MiniLM sentence embeddings. All use nested CV: 10 outer folds, settings tuned by inner 3-fold CV, imputation and vectorizers fit inside folds.
+- **Explanation:** shuffle importance by feature family on held-out folds, Ridge coefficients, partial dependence on runtime, and out-of-fold case studies.
+- **Noise check:** each score's sampling variance from its rating count gives the unpredictable share of the gap and an R² ceiling; the models are refit on films with 50+ audience ratings.
+
+### Divisiveness (`divisive-books.ipynb`)
+
+- **Sample:** 3,794 Goodreads books with 100+ star ratings and full metadata (716 books whose detail page wasn't scraped are left out).
+- **Target:** standard deviation of each book's 1–5 star ratings. The average rating enters every model as a control (a spline for linear models), and results are reported as the share of remaining variance explained beyond it.
+- **Features (`features.py`):** reader genre tags with 30+ books, log page count, publication year, series membership and position (capped so comic issue numbers and box sets don't dominate); post-publication popularity and award counts kept separate.
+- **No author leakage:** outer and inner (tuning) splits are GroupKFold by author, so no author's books are on both sides; boosting's rounds are tuned that way too, not by its built-in (ungrouped) early stopping.
+- **Intervals clustered by author** for the group comparisons; box sets and series books without a listed position are kept apart from first and later volumes.
+- **Robustness:** the same models on the share of 1–2 star ratings.
+
 ---
 
 ## Setup
@@ -154,7 +198,7 @@ make test                                 # unit tests (plus checks against data
 
 Without `make`: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt -r requirements-dev.txt && .venv/bin/pip install -e .`
 
-Run the notebooks in order: `data-collection.ipynb` → `data-cleaning.ipynb` → `main.ipynb` (or `make clean-data analysis`). With the raw CSVs already in `data/`, skip collection. On a laptop, cleaning takes about 1.5 minutes and the analysis about 15 (mostly the tree models and Lasso on 98k Goodreads reviews).
+Run the notebooks in order: `data-collection.ipynb` → `data-cleaning.ipynb` → `main.ipynb` (or `make clean-data analysis`), then `gap-analysis.ipynb` (`make gap`, about 10 minutes) and `divisive-books.ipynb` (`make books`, about 8 minutes). With the raw CSVs already in `data/`, skip collection. On a laptop, cleaning takes about 1.5 minutes and the analysis about 15 (mostly the tree models and Lasso on 98k Goodreads reviews).
 
 To scrape (hours per source; check each site's terms first):
 
@@ -162,16 +206,6 @@ To scrape (hours per source; check each site's terms first):
 .venv/bin/python -m story_reception.scrape goodreads rottentomatoes --output-dir data
 # or: make scrape SOURCES=goodreads, or uncomment a line in data-collection.ipynb
 ```
-
----
-
-## Next questions
-
-Genre turned out to be a weak predictor, so three questions replace Question 2 (details at the end of `main.ipynb`):
-
-1. **Where do critics and audiences disagree, and can we predict it?** Model the critic − audience gap for 2,454 films from genre, content rating, runtime, year, language, review volume and review text, and flag films likely to split by 20+ points. Early signal: PG-13 films average 12.8 points lower with critics than with audiences.
-2. **What makes a book divisive?** Holding the average rating fixed, which books polarize readers (spread of 1–5 star ratings across 4,510 books)? Do genre, length, age or the book's description explain it?
-3. **Do critics and audiences reward different things?** Tag review sentences for acting, writing, pacing, visuals and endings with a zero-shot model, and test whether aspect sentiment relates to ratings differently for critics and audiences.
 
 ---
 
