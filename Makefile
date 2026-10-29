@@ -2,7 +2,7 @@ VENV ?= .venv
 PY := $(VENV)/bin/python
 NB := $(VENV)/bin/jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=5400
 
-.PHONY: help setup test lint scrape clean-data warehouse analysis all
+.PHONY: help setup test lint scrape clean-data warehouse analysis gap all
 
 help:  ## List targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-12s %s\n", $$1, $$2}'
@@ -30,4 +30,7 @@ warehouse:  ## Build data/reception.duckdb from data/cleaned/ and run the SQL qu
 analysis:  ## Rerun main.ipynb and regenerate figures/ (about 15 min)
 	$(NB) main.ipynb
 
-all: clean-data warehouse analysis test  ## Clean, build the warehouse, analyze, then test
+gap:  ## Rerun gap-analysis.ipynb (critic-audience gap models, RQ2)
+	$(NB) gap-analysis.ipynb
+
+all: clean-data warehouse analysis gap test  ## Clean, build the warehouse, run both analyses, then test

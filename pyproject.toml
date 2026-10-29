@@ -12,6 +12,7 @@ dependencies = ["pandas>=2.2", "numpy>=2.0"]
 [project.optional-dependencies]
 language = ["lingua-language-detector>=2.0"]
 warehouse = ["duckdb>=2.0"]
+embeddings = ["sentence-transformers>=3.0"]
 scrape = ["aiohttp>=3.9", "requests>=2.31", "beautifulsoup4>=4.12", "lxml>=5", "nest-asyncio>=1.6", "playwright>=1.40"]
 dev = ["pytest>=8", "ruff>=0.6"]
 
