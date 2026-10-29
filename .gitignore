@@ -7,3 +7,7 @@ data.zip
 .DS_Store
 *zip
 *.log
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/

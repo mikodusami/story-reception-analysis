@@ -10,6 +10,7 @@ scipy==1.18.1
 matplotlib==3.11.2
 seaborn==0.13.2
 lingua-language-detector==2.2.0
+duckdb==2.0.0
 
 # Scraping (data-collection.ipynb); run `playwright install chromium` after installing
 aiohttp==3.14.5

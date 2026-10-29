@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "story-reception"
+version = "0.1.0"
+description = "Critic and audience reception of films and books: cleaning helpers for the analysis notebooks"
+requires-python = ">=3.12"
+dependencies = ["pandas>=2.2", "numpy>=2.0"]
+
+[project.optional-dependencies]
+language = ["lingua-language-detector>=2.0"]
+warehouse = ["duckdb>=2.0"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]

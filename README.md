@@ -19,15 +19,30 @@ Do the words in a review predict the rating it gives, and where do critics and a
 
 **2. The original numbers were mostly overfitting.** The class version scored its models on their training data. On new films, its critic model falls from 0.64 to 0.05.
 
-**3. Readers disagree about the same book; critics converge on a film.** Which book a review is about explains 6% of Goodreads ratings, against 48% from the words. For critics, the film's average critic score (0.50) predicts better than the critic's own words (0.29).
+**3. Simple linear models beat trees and ensembles on review text.** Seven model families compete on the same held-out titles:
 
-**4. Critics and audiences speak differently.** Critics' negative words are craft diagnoses (*inept*, *incoherent*, *misfire*, *fails*) with coefficients about half the size of audiences' blunt verdicts (*worst*, *garbage*, *terrible*). On Goodreads, *dnf* ("did not finish") is the strongest signal of a low rating.
+| Held-out R² | Goodreads | RT audience | RT critics |
+|---|---|---|---|
+| **Ridge** | **0.48** | **0.56** | **0.29** |
+| Lasso | LASSO_GR | LASSO_AUD | LASSO_CRIT |
+| Random forest | 0.33 | 0.51 | 0.23 |
+| Gradient boosting | 0.40 | 0.49 | 0.15 |
+| Linear regression (OLS) | 0.48 | 0.40 | 0.06 |
+| Decision tree | 0.15 | 0.35 | 0.06 |
 
-**5. Horror and documentaries split critics from audiences the most.** Critics score both about 16 points higher than audiences (on a 0–100 scale), while audiences favor biographies, music films and romance by 9–10 points. Genre alone explains only 8–14% of film scores.
+![Held-out R² by model](figures/model-comparison-r2.png)
+
+Ridge wins on every platform. LASSO_SENTENCE As a yes/no question (positive review or not), logistic regression and Naive Bayes reach ROC-AUC 0.83–0.91, and a single decision tree trails every other model. Ratings are a sum of many small word signals, which suits a linear model. Each tree split can only ask about one word, and any one word separates out only a small share of reviews. Scores hold up on reviewers the model never saw, so the models aren't leaning on who wrote the review.
+
+**4. Readers disagree about the same book; critics converge on a film.** Which book a review is about explains 6% of Goodreads ratings, against 48% from the words. For critics, the film's average critic score (0.50) predicts better than the critic's own words (0.29).
+
+**5. Critics and audiences speak differently.** Critics' negative words are craft diagnoses (*inept*, *incoherent*, *misfire*, *fails*) with coefficients about half the size of audiences' blunt verdicts (*worst*, *garbage*, *terrible*). On Goodreads, *dnf* ("did not finish") is the strongest signal of a low rating.
+
+**6. Horror and documentaries split critics from audiences the most.** Critics score both about 16 points higher than audiences (on a 0–100 scale), while audiences favor biographies, music films and romance by 9–10 points. Genre alone explains only 8–14% of film scores, whichever model is used; for books, gradient boosting beats linear models (R² 0.26 vs. 0.21), suggesting genre combinations matter.
 
 ![Genres associated with critic–audience disagreement](figures/genre-gap.png)
 
-**6. The model misses pans that skip pan words.** In the 60 worst predictions: negation ("not a great movie"), sarcasm, objections to a book's message, and witty critic put-downs. That points to word-order-aware models next.
+**7. The model misses pans that skip pan words.** In the 60 worst predictions: negation ("not a great movie"), sarcasm, objections to a book's message, and witty critic put-downs. That points to word-order-aware models next.
 
 ---
 
@@ -61,9 +76,15 @@ The raw and cleaned CSVs are not in the repo. Scraped review text isn't mine to 
 ```
 ├── data-collection.ipynb   # Scrapers for Goodreads and Rotten Tomatoes -> data/*.csv
 ├── data-cleaning.ipynb     # Dedupe, join keys, language detection, text and rating cleaning, quality checks -> data/cleaned/
-├── main.ipynb              # Analysis: held-out text models, word and genre associations with intervals
-├── requirements.txt        # Pinned dependencies (tested on Python 3.14)
-├── figures/                # Charts used in this README, exported from main.ipynb
+├── main.ipynb              # Analysis: held-out text models, model-family comparison, word and genre associations with intervals
+├── src/story_reception/    # Cleaning helpers (critic-rating parser, text cleaner, language detection) used by data-cleaning.ipynb
+├── sql/                    # DuckDB warehouse: staging/ loads CSVs, models/ builds tables, checks/ are data-quality rules
+├── tests/                  # pytest: every critic-rating format, text cleaning, and a check against data/cleaned/ when present
+├── Makefile                # make setup | test | lint | clean-data | warehouse | analysis
+├── pyproject.toml          # Package metadata and ruff settings
+├── requirements.txt        # Pinned dependencies (tested on Python 3.14); requirements-dev.txt adds pytest and ruff
+├── .github/workflows/      # CI: lint and tests on Python 3.12 and 3.14
+├── figures/                # Charts used in this README, exported by main.ipynb on every run
 └── data/                   # Not committed
     ├── goodreads-books.csv, goodreads-reviews.csv
     ├── rotten-tomatoes-movies.csv, rotten-tomatoes-critic-reviews.csv, rotten-tomatoes-audience-reviews.csv
@@ -92,26 +113,48 @@ The raw and cleaned CSVs are not in the repo. Scraped review text isn't mine to 
 - **One 0–1 scale:** Goodreads (r − 1) / 4, RT audience (s − 0.5) / 4.5, critics r / 5.
 - **Quality checks** fail the notebook if keys repeat, joins break, ratings leave 0–1, or text isn't clean.
 
+### Warehouse (`sql/`, `make warehouse`)
+
+The cleaned CSVs are loaded into a local DuckDB database (`data/reception.duckdb`) and modeled in plain SQL files: `films`, `film_genres`, `critic_reviews`, `audience_reviews`, `books` (with a divisiveness measure: the spread of each book's 1–5 star ratings), `book_genres`, `book_reviews`, `film_gap` (critic − audience per film) and `genre_gap`. Five check queries (unique keys, missing keys, orphan reviews, scores on scale, derived values) must each return zero rows, or the build fails. The whole build takes about 5 seconds.
+
+```sql
+-- Which widely read books split readers the most?
+SELECT title, star_count, round(avg_rating, 2) AS avg_rating, round(star_sd, 2) AS star_sd
+FROM books WHERE star_count >= 10000 ORDER BY star_sd DESC LIMIT 5;
+```
+
+| title | star_count | avg_rating | star_sd |
+|---|---|---|---|
+| Leaving Isn't the Hardest Thing | 10,580 | 3.43 | 1.52 |
+| The Book of Mormon | 91,732 | 4.23 | 1.45 |
+| Fifty Shades of Grey | 2,893,045 | 3.67 | 1.36 |
+| Atlas Shrugged | 409,308 | 3.69 | 1.31 |
+| Twilight | 7,398,289 | 3.68 | 1.30 |
+
 ### Analysis (`main.ipynb`)
 
 - **Held-out by title.** 20% of books and films are held out, so every test review is of a title the model never saw.
 - **Baselines.** Predict the average; predict the title's published average.
 - **TF-IDF + Ridge,** with the penalty chosen by 5-fold cross-validation grouped by title, compared with the class version's unregularized regression scored both ways.
 - **95% bootstrap intervals** (titles resampled 200 times) on every word coefficient. Only words whose interval excludes zero are interpreted.
+- **Seven model families** on the same split: OLS, Ridge, Lasso, decision tree, random forest and gradient boosting for the rating; logistic regression (L2 and L1), Naive Bayes and the same tree models for positive vs. negative. Settings are chosen on a validation split of the training titles.
+- **Reviewer leakage check:** every model is also scored on held-out reviews from reviewers absent from training. (A split that separates both titles and reviewers isn't possible: shared reviewers link 95–100% of reviews into one cluster.)
 - **Error analysis** of the 20 worst held-out predictions per platform.
-- **Genre models** on films with both scores (no median-filling), genres with 30+ titles, and the critic − audience gap modeled directly, with repeated-CV R² and 1,000-resample intervals.
+- **Genre models** on films with both scores (no median-filling), genres with 30+ titles, and the critic − audience gap modeled directly, with repeated-CV R² and 1,000-resample intervals. The same model families are compared by nested cross-validation, plus a three-class decision tree for films that split critics and audiences by 20+ points.
 
 ---
 
 ## Setup
 
 ```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+make setup                                # .venv with pinned dependencies, dev tools and this package
+make test                                 # unit tests (plus checks against data/cleaned/ if present)
 .venv/bin/playwright install chromium     # only needed to re-scrape Rotten Tomatoes
 ```
 
-Run the notebooks in order: `data-collection.ipynb` → `data-cleaning.ipynb` → `main.ipynb`. With the raw CSVs already in `data/`, skip collection. On a laptop, cleaning takes about 1.5 minutes and the analysis about 4.
+Without `make`: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt -r requirements-dev.txt && .venv/bin/pip install -e .`
+
+Run the notebooks in order: `data-collection.ipynb` → `data-cleaning.ipynb` → `main.ipynb` (or `make clean-data analysis`). With the raw CSVs already in `data/`, skip collection. On a laptop, cleaning takes about 1.5 minutes and the analysis about 15 (mostly the tree models and Lasso on 98k Goodreads reviews).
 
 To scrape, run one cell at the bottom of `data-collection.ipynb`:
 
