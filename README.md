@@ -4,6 +4,16 @@
 
 Do the words in a review predict the rating it gives, and where do critics and audiences disagree? This project scrapes about 180,000 reviews from **Goodreads** (books) and **Rotten Tomatoes** (films, with separate critic and audience voices), cleans them, and tests each claim on data the model has never seen.
 
+## The app
+
+An interactive Streamlit app puts all three models in front of a visitor (`app/`, run it with `make app`):
+
+- **Review → rating:** paste a review, get the predicted star rating, with each word shaded by how much it pushed the rating up or down. Example reviews include the cases the model gets wrong (negation, sarcasm).
+- **Critics vs. audiences:** look up one of 300 well-known films (predictions are out-of-fold, so the model never saw the film it's predicting) or describe a new one, and see the predicted critic–audience gap and the chance of a 20+ point split.
+- **Divisive books:** look up one of 300 widely read books and see how its rating spread compares with books at the same average, with the genre tags pushing it either way.
+
+Every tab states the model's held-out accuracy, read from `app/artifacts/metrics.json`, which `app/train.py` computes the same way the notebooks do. The app ships trained models and small samples only (3.2 MB), not the scraped data.
+
 ## Key findings
 
 **1. Review text explains about half of reader and audience ratings on unseen titles, and about a quarter of critic ratings.** On a held-out 20% of books and films, TF-IDF + Ridge reaches R² 0.48 on Goodreads, 0.56 for RT audiences and 0.29 for RT critics.
@@ -106,8 +116,9 @@ The raw and cleaned CSVs are not in the repo. Scraped review text isn't mine to 
 ├── divisive-books.ipynb    # Book divisiveness: star spread adjusted for the average, author-grouped nested CV
 ├── src/story_reception/    # scrape/ (Goodreads + RT pipelines), clean.py, language.py, features.py, warehouse.py
 ├── sql/                    # DuckDB warehouse: staging/ loads CSVs, models/ builds tables, checks/ are data-quality rules
+├── app/                    # Streamlit app: app.py (UI), predict.py (tested logic), train.py, requirements.txt (deploy), artifacts/
 ├── tests/                  # pytest: every critic-rating format, text cleaning, and a check against data/cleaned/ when present
-├── Makefile                # make setup | test | lint | scrape | clean-data | warehouse | analysis | gap | books
+├── Makefile                # make setup | test | lint | scrape | clean-data | warehouse | analysis | gap | books | train-app | app | space
 ├── pyproject.toml          # Package metadata and ruff settings
 ├── requirements.txt        # Pinned dependencies (tested on Python 3.14); requirements-dev.txt adds pytest and ruff
 ├── .github/workflows/      # CI: lint and tests on Python 3.12 and 3.14
@@ -193,10 +204,13 @@ FROM books WHERE star_count >= 10000 ORDER BY star_sd DESC LIMIT 5;
 ```bash
 make setup                                # .venv with pinned dependencies, dev tools and this package
 make test                                 # unit tests (plus checks against data/cleaned/ if present)
+make app                                  # the Streamlit app at http://localhost:8501
 .venv/bin/playwright install chromium     # only needed to re-scrape Rotten Tomatoes
 ```
 
 Without `make`: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt -r requirements-dev.txt && .venv/bin/pip install -e .`
+
+**Deploying the app (free):** on [Streamlit Community Cloud](https://share.streamlit.io), create an app from this repo with main file `app/app.py` and Python 3.13 (under Advanced settings). It installs `app/requirements.txt`, the slim, pinned list next to `app.py`, not the full root requirements. `make space` builds an alternative Hugging Face Docker Space bundle in `build/space/`, which needs a Hugging Face PRO account. To retrain the app's models after re-cleaning the data: `make train-app`.
 
 Run the notebooks in order: `data-collection.ipynb` → `data-cleaning.ipynb` → `main.ipynb` (or `make clean-data analysis`), then `gap-analysis.ipynb` (`make gap`, about 10 minutes) and `divisive-books.ipynb` (`make books`, about 8 minutes). With the raw CSVs already in `data/`, skip collection. On a laptop, cleaning takes about 1.5 minutes and the analysis about 15 (mostly the tree models and Lasso on 98k Goodreads reviews).
 

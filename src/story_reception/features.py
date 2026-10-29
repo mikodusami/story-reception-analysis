@@ -28,10 +28,16 @@ def genre_lists(films: pd.DataFrame) -> pd.Series:
     return films['genres'].fillna('').map(lambda g: [x.strip() for x in g.split('|') if x.strip()])
 
 
-def genre_flags(genres: pd.Series, min_titles: int) -> pd.DataFrame:
-    """One 0/1 column per genre on at least min_titles titles, most common first."""
-    counts = pd.Series([g for gl in genres for g in gl], dtype=object).value_counts()
-    keep = counts[counts >= min_titles].index
+def genre_flags(genres: pd.Series, min_titles: int, vocab=None) -> pd.DataFrame:
+    """One 0/1 column per genre on at least min_titles titles, most common first.
+
+    Pass vocab (a list of genre names saved at training time) to get exactly those columns, e.g. for one new title.
+    """
+    if vocab is None:
+        counts = pd.Series([g for gl in genres for g in gl], dtype=object).value_counts()
+        keep = counts[counts >= min_titles].index
+    else:
+        keep = pd.Index(vocab)
     dummies = genres.map('|'.join).str.get_dummies(sep='|')
     return (dummies.reindex(columns=keep, fill_value=0).astype(int)
             .rename(columns=lambda g: f'genre: {g}').set_axis(genres.index))
@@ -43,10 +49,15 @@ def content_rating_group(s: pd.Series) -> pd.Series:
     return s.where(~s.str.startswith('TV'), 'TV').where(s.isin(CONTENT_RATINGS) | s.str.startswith('TV'), 'Unrated')
 
 
-def pre_release_features(films: pd.DataFrame, min_genre_films: int = 30, top_languages: int = 8) -> pd.DataFrame:
-    """One row per film: genre flags, content rating, runtime, release year/month, language flags."""
+def pre_release_features(films: pd.DataFrame, min_genre_films: int = 30, top_languages: int = 8,
+                         genre_vocab=None, language_vocab=None) -> pd.DataFrame:
+    """One row per film: genre flags, content rating, runtime, release year/month, language flags.
+
+    genre_vocab and language_vocab fix the genre and non-English language columns (as saved at training time);
+    without them the columns are chosen from the films passed in.
+    """
     genres = genre_lists(films)
-    out = genre_flags(genres, min_genre_films)
+    out = genre_flags(genres, min_genre_films, genre_vocab)
     out['genre count'] = genres.str.len()
 
     rating = content_rating_group(films['content_rating'])
@@ -62,10 +73,11 @@ def pre_release_features(films: pd.DataFrame, min_genre_films: int = 30, top_lan
 
     language = films['original_language'].fillna('Unknown').astype(str)
     out['language: English'] = language.str.contains('English').astype(int)
-    others = language[~language.str.contains('English')].value_counts()
-    for lang in others.index[:top_languages]:
-        if lang != 'Unknown':
-            out[f'language: {lang}'] = (language == lang).astype(int)
+    if language_vocab is None:
+        others = language[~language.str.contains('English')].value_counts()
+        language_vocab = [lang for lang in others.index[:top_languages] if lang != 'Unknown']
+    for lang in language_vocab:
+        out[f'language: {lang}'] = (language == lang).astype(int)
     return out
 
 
@@ -115,10 +127,10 @@ def first_number(s: pd.Series) -> pd.Series:
     return pd.to_numeric(s.fillna('').astype(str).str.extract(r'(\d+(?:\.\d+)?)', expand=False), errors='coerce')
 
 
-def book_features(books: pd.DataFrame, min_genre_books: int = 30) -> pd.DataFrame:
+def book_features(books: pd.DataFrame, min_genre_books: int = 30, genre_vocab=None) -> pd.DataFrame:
     """Known at publication: reader genre tags, length, publication year, series membership."""
     genres = genre_lists(books)
-    out = genre_flags(genres, min_genre_books)
+    out = genre_flags(genres, min_genre_books, genre_vocab)
     out['genre count'] = genres.str.len()
     # Caps keep a few bad or unusual values from dominating linear models: comic issue numbers as series
     # positions (404), box sets of 6,000+ pages, and edition years like 1812 for a 2000s omnibus (the only
@@ -160,3 +172,8 @@ def book_post_features(books: pd.DataFrame) -> pd.DataFrame:
         'award wins': awards.str.count(r'\(WINNER\)'),
         'award nominations': awards.str.count(r'\(NOMINEE\)'),
     }, index=books.index)
+
+
+def vocab_from_columns(columns, prefix: str) -> list:
+    """['genre: Drama', 'runtime (min)', 'genre: Horror'] with 'genre: ' -> ['Drama', 'Horror']."""
+    return [c[len(prefix):] for c in columns if c.startswith(prefix)]

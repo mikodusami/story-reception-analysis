@@ -12,6 +12,10 @@ seaborn==0.13.2
 lingua-language-detector==2.2.0
 duckdb==2.0.0
 
+# App (app/app.py)
+streamlit==1.66.1
+joblib==1.6.0
+
 # Synopsis embeddings (gap-analysis.ipynb); the notebook skips embedding models without these
 sentence-transformers==6.2.0
 torch==2.15.0

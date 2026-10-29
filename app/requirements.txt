@@ -1,0 +1,10 @@
+# What the deployed app needs (Streamlit Community Cloud reads this file, next to app.py, before the root one).
+# scikit-learn must match the version the models in app/artifacts/ were trained with.
+streamlit==1.66.1
+scikit-learn==1.9.1
+scipy==1.18.1
+pandas==3.1.0
+numpy==2.5.4
+joblib==1.6.0
+altair==6.3.0
+pyarrow==26.0.0

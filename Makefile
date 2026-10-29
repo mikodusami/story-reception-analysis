@@ -2,7 +2,7 @@ VENV ?= .venv
 PY := $(VENV)/bin/python
 NB := $(VENV)/bin/jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=5400
 
-.PHONY: help setup test lint scrape clean-data warehouse analysis gap books all
+.PHONY: help setup test lint scrape clean-data warehouse analysis gap books train-app app space all
 
 help:  ## List targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-12s %s\n", $$1, $$2}'
@@ -36,4 +36,13 @@ gap:  ## Rerun gap-analysis.ipynb (critic-audience gap models, RQ2)
 books:  ## Rerun divisive-books.ipynb (what makes a book divisive, RQ3)
 	$(NB) divisive-books.ipynb
 
-all: clean-data warehouse analysis gap books test  ## Clean, build the warehouse, run all three analyses, then test
+train-app:  ## Retrain the app models from data/cleaned/ and write app/artifacts/ (about 5 min)
+	$(PY) app/train.py
+
+app:  ## Run the Streamlit app locally at http://localhost:8501
+	$(VENV)/bin/streamlit run app/app.py
+
+space:  ## Build the Hugging Face Space bundle in build/space/ (publish: see app/build_space.py)
+	$(PY) app/build_space.py
+
+all: clean-data warehouse analysis gap books train-app test  ## Clean, build the warehouse, run all three analyses, retrain the app, then test

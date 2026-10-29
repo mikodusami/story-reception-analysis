@@ -1,0 +1,40 @@
+{
+ "trained": "2026-10-29",
+ "reviews": {
+  "Goodreads": {
+   "held-out R2": 0.483,
+   "MAE (stars)": 0.67,
+   "reviews": 122331,
+   "titles": 4938
+  },
+  "RT audience": {
+   "held-out R2": 0.557,
+   "MAE (stars)": 0.81,
+   "reviews": 14752,
+   "titles": 2870
+  },
+  "RT critics": {
+   "held-out R2": 0.291,
+   "MAE (stars)": 0.69,
+   "reviews": 15595,
+   "titles": 2848
+  }
+ },
+ "films": {
+  "films": 2454,
+  "gap R2": 0.166,
+  "gap R2 sd": 0.028,
+  "gap MAE (points)": 20.0,
+  "split AUC": 0.715,
+  "split top-10% precision": 0.78,
+  "split base rate": 0.465
+ },
+ "books": {
+  "books": 3794,
+  "authors": 2603,
+  "average-only R2": 0.472,
+  "model R2": 0.652,
+  "model R2 sd": 0.025,
+  "share beyond the average": 0.341
+ }
+}

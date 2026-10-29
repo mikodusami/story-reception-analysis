@@ -1,0 +1,301 @@
+title,release_year,release_date,content_rating,runtime_min,original_language,genres,tomatometer,tomatometer_count,audience_score,audience_review_count,gap,predicted gap,split probability
+Shrek 2,2004.0,2004-05-15,PG,92.0,English,"Kids & Family, Comedy, Fantasy, Animation",89.0,238,69.0,1892530,20.0,0.288,0.193
+Finding Nemo,2003.0,2003-05-30,G,100.0,English,"Kids & Family, Comedy, Adventure, Animation",99.0,266,86.0,1434748,13.0,-1.352,0.278
+E.T. the Extra-Terrestrial,1982.0,1982-06-11,PG,114.0,English,"Kids & Family, Sci-Fi, Adventure",99.0,146,72.0,1318882,27.0,-0.98,0.063
+The Notebook,2004.0,2004-05-20,PG-13,124.0,English,"Romance, Drama",54.0,182,85.0,1258974,-31.0,-24.014,0.367
+Saw II,2005.0,2005-10-28,R,93.0,English,"Horror, Mystery & Thriller",39.0,124,59.0,1228475,-20.0,7.224,0.541
+Braveheart,1995.0,1995-05-24,R,177.0,English,"History, Drama, Biography, War, Action, Romance",74.0,139,85.0,1198232,-11.0,-6.188,0.099
+The Incredibles,2004.0,2004-11-05,PG,115.0,English,"Kids & Family, Comedy, Adventure, Animation",97.0,248,75.0,1099153,22.0,-0.791,0.195
+Shrek the Third,2007.0,2007-05-18,PG,93.0,English,"Kids & Family, Comedy, Adventure, Animation",41.0,210,52.0,202695,-11.0,-1.123,0.104
+The Dark Knight,2008.0,2008-07-18,PG-13,152.0,English,"Action, Adventure, Fantasy",94.0,340,94.0,173380,0.0,-5.746,0.111
+The Simpsons Movie,2007.0,2007-07-27,PG-13,87.0,English,"Comedy, Animation",87.0,220,77.0,101620,10.0,-12.34,0.262
+Forrest Gump,1994.0,1994-07-06,PG-13,142.0,English,"Comedy, Drama, Romance, Adventure, War, History",75.0,157,95.0,92568,-20.0,-18.554,0.148
+Shrek,2001.0,2001-04-22,PG,90.0,English,"Kids & Family, Comedy, Fantasy, Animation",88.0,212,90.0,84689,-2.0,0.976,0.252
+Iron Man,2008.0,2008-05-02,PG-13,126.0,English,"Action, Adventure, Sci-Fi, Fantasy",94.0,278,91.0,82965,3.0,-6.07,0.137
+The Lord of the Rings: The Fellowship of the Ring,2001.0,2001-12-19,PG-13,178.0,English,"Fantasy, Adventure",91.0,271,95.0,80557,-4.0,-9.205,0.205
+Ratatouille,2007.0,2007-06-29,G,111.0,English,"Kids & Family, Comedy, Animation",96.0,251,87.0,79157,9.0,1.178,0.095
+Fight Club,1999.0,1999-10-15,R,139.0,English,"Mystery & Thriller, Drama",80.0,184,96.0,73794,-16.0,-4.465,0.202
+Batman Begins,2005.0,2005-06-15,PG-13,140.0,English,"Action, Fantasy, Adventure",85.0,284,94.0,66658,-9.0,-3.193,0.093
+"Monsters, Inc.",2001.0,2001-10-28,G,92.0,English,"Kids & Family, Comedy, Fantasy, Adventure, Animation",96.0,191,90.0,65706,6.0,4.653,0.291
+Pulp Fiction,1994.0,1994-10-14,R,154.0,English,"Crime, Drama, Comedy, Action",92.0,186,96.0,62546,-4.0,-3.231,0.123
+Star Wars: The Last Jedi,2017.0,2017-12-15,PG-13,152.0,English,"Sci-Fi, Adventure, Action, Fantasy",91.0,483,41.0,60340,50.0,-11.696,0.376
+Star Trek,2009.0,2009-05-07,PG-13,126.0,English,"Sci-Fi, Adventure, Action, Fantasy",94.0,351,91.0,59689,3.0,-6.031,0.137
+The Departed,2006.0,2006-10-06,R,152.0,English,"Crime, Drama, Mystery & Thriller",91.0,285,94.0,58094,-3.0,-7.264,0.098
+V for Vendetta,2006.0,2006-03-17,R,132.0,English,"Action, Mystery & Thriller",73.0,255,90.0,57998,-17.0,-10.193,0.197
+Casino Royale,2006.0,2006-11-17,PG-13,144.0,English,"Action, Adventure, Mystery & Thriller",94.0,265,90.0,55082,4.0,-2.371,0.176
+WALL-E,2008.0,2008-06-27,G,97.0,English,"Kids & Family, Adventure, Sci-Fi, Comedy, Animation",95.0,258,90.0,50431,5.0,3.219,0.125
+Toy Story,1995.0,1995-11-22,G,81.0,English,"Kids & Family, Comedy, Adventure, Fantasy, Animation",100.0,161,92.0,49719,8.0,6.228,0.213
+Star Wars: Episode V - The Empire Strikes Back,1980.0,1980-05-21,PG,127.0,English,"Sci-Fi, Adventure, Action, Fantasy",93.0,174,97.0,42471,-4.0,-3.856,0.085
+Hancock,2008.0,2008-07-02,PG-13,92.0,English,"Action, Comedy, Fantasy",42.0,224,59.0,42247,-17.0,-9.364,0.323
+Up,2009.0,2009-05-29,PG,96.0,English,"Kids & Family, Comedy, Adventure, Animation",98.0,291,90.0,42226,8.0,0.263,0.115
+Saving Private Ryan,1998.0,1998-07-24,R,169.0,English,"War, History, Drama",94.0,148,95.0,41369,-1.0,-7.832,0.119
+The Godfather,2022.0,2022-02-25,R,177.0,English,"Crime, Drama",97.0,155,98.0,41107,-1.0,-3.885,0.229
+Star Wars: Episode I - The Phantom Menace,2024.0,2024-05-03,PG,136.0,English,"Sci-Fi, Adventure, Action, Fantasy",54.0,290,59.0,40357,-5.0,-10.889,0.443
+Back to the Future,1985.0,1985-07-03,PG,116.0,English,"Comedy, Sci-Fi",93.0,118,95.0,40117,-2.0,-3.938,0.332
+Jurassic Park,1993.0,1993-06-11,PG-13,126.0,English,"Adventure, Action, Sci-Fi, Mystery & Thriller",91.0,203,91.0,38382,0.0,-7.867,0.235
+The Curious Case of Benjamin Button,2008.0,2008-12-25,PG-13,167.0,English,"Fantasy, Drama, Romance",72.0,254,80.0,37438,-8.0,-8.425,0.129
+The Princess Bride,1987.0,1987-10-01,PG,98.0,English,"Kids & Family, Adventure, Comedy, Romance, Fantasy",93.0,150,94.0,37189,-1.0,-4.374,0.199
+Marvel's the Avengers,2012.0,2012-05-04,PG-13,143.0,English,"Action, Adventure, Fantasy, Sci-Fi",91.0,363,91.0,36284,0.0,-1.821,0.116
+Jaws,1975.0,1975-06-20,PG,124.0,English,"Holiday, Mystery & Thriller, Horror, Adventure",97.0,178,91.0,36187,6.0,-1.027,0.086
+Cars,2006.0,2006-06-09,G,117.0,English,"Kids & Family, Comedy, Adventure, Animation",74.0,198,80.0,35698,-6.0,2.74,0.13
+The Devil Wears Prada,2006.0,2006-06-30,PG-13,109.0,English,"Comedy, Drama",75.0,192,76.0,35127,-1.0,-14.847,0.267
+Captain Marvel,2019.0,2019-03-08,PG-13,124.0,English,"Action, Adventure, Sci-Fi, Fantasy",79.0,546,45.0,35103,34.0,-8.071,0.579
+Star Wars: Episode IV - A New Hope,1981.0,1981-04-10,PG,121.0,English,"Sci-Fi, Adventure, Action, Fantasy",94.0,206,96.0,34697,-2.0,-1.327,0.058
+Monty Python and the Holy Grail,1975.0,1975-04-01,PG,91.0,British English,Comedy,92.0,131,95.0,33992,-3.0,-9.421,0.197
+Amélie,2001.0,2001-11-02,R,121.0,French (France),"Romance, Comedy",90.0,233,95.0,33832,-5.0,-4.583,0.162
+Star Wars: Episode VI - Return of the Jedi,1985.0,1985-03-29,PG,131.0,English,"Sci-Fi, Adventure, Action, Fantasy",83.0,169,94.0,33672,-11.0,-2.164,0.132
+Talladega Nights: The Ballad of Ricky Bobby,2006.0,2006-08-04,PG-13,110.0,English,"Comedy, Action",72.0,186,73.0,33602,-1.0,-8.251,0.346
+Kung Fu Panda,2008.0,2008-06-06,PG,92.0,English,"Kids & Family, Comedy, Adventure, Animation",87.0,191,83.0,33226,4.0,-2.904,0.149
+Madagascar,2005.0,2005-05-27,PG,86.0,English,"Kids & Family, Comedy, Adventure, Animation",55.0,192,67.0,29818,-12.0,-0.024,0.115
+Beowulf,2007.0,2007-11-16,PG-13,114.0,English,"Adventure, Action, Fantasy, Animation",71.0,189,50.0,29736,21.0,-5.59,0.081
+Top Gun: Maverick,2022.0,2022-05-27,PG-13,131.0,English,"Action, Adventure",96.0,475,99.0,29724,-3.0,-19.632,0.374
+The Bourne Identity,2002.0,2002-06-06,PG-13,113.0,English,"Action, Mystery & Thriller",84.0,192,93.0,29722,-9.0,-13.591,0.317
+Superman Returns,2006.0,2006-06-28,PG-13,154.0,English,"Adventure, Action, Sci-Fi, Fantasy",72.0,290,60.0,29719,12.0,-4.033,0.1
+Ice Age,2002.0,2002-03-15,PG,81.0,English,"Kids & Family, Comedy, Adventure, Animation",76.0,164,82.0,27845,-6.0,2.412,0.3
+Die Hard,1988.0,1988-07-15,R,132.0,English,"Action, Mystery & Thriller",94.0,89,94.0,27445,0.0,-11.056,0.168
+Raiders of the Lost Ark,1981.0,1981-06-12,PG,115.0,English,"Adventure, Action",94.0,157,96.0,26524,-2.0,-8.125,0.054
+Top Gun,2021.0,2021-05-13,PG,109.0,English,"Action, Adventure, Drama, Romance",59.0,76,83.0,26326,-24.0,-10.069,0.544
+Toy Story 3,2010.0,2010-06-18,G,102.0,English,"Kids & Family, Comedy, Adventure, Fantasy, Animation",98.0,311,90.0,26200,8.0,2.759,0.113
+Seven,1995.0,1995-09-22,R,127.0,English,"Mystery & Thriller, Crime, Drama",84.0,156,95.0,26058,-11.0,-8.058,0.19
+Iron Man 2,2010.0,2010-05-07,PG-13,124.0,English,"Action, Adventure, Sci-Fi, Fantasy",72.0,299,71.0,26053,1.0,-1.634,0.179
+Ice Age: The Meltdown,2006.0,2006-03-31,PG,91.0,English,"Kids & Family, Comedy, Adventure, Animation",56.0,144,71.0,25760,-15.0,-0.78,0.151
+Terminator 2: Judgment Day,1991.0,1991-07-01,R,136.0,English,"Sci-Fi, Action, Mystery & Thriller",90.0,154,95.0,25648,-5.0,-4.468,0.117
+Indiana Jones and the Last Crusade,1989.0,1989-05-24,PG-13,127.0,English,"Adventure, Action",84.0,138,94.0,24688,-10.0,-12.824,0.246
+The Fifth Element,1997.0,1997-05-09,PG-13,127.0,English,"Sci-Fi, Adventure, Action, Fantasy",71.0,70,87.0,24387,-16.0,-3.873,0.17
+Toy Story 2,2009.0,2009-10-02,G,92.0,English,"Kids & Family, Comedy, Adventure, Fantasy, Animation",100.0,174,87.0,23590,13.0,2.594,0.074
+Spirited Away,2002.0,2002-09-20,PG,125.0,Japanese,"Fantasy, Adventure, Animation",96.0,225,96.0,23067,0.0,0.71,0.149
+Aliens,1986.0,1986-07-18,R,137.0,English,"Sci-Fi, Horror, Action, Adventure",93.0,150,94.0,22898,-1.0,-3.0,0.18
+The Mummy,1999.0,1999-05-07,PG-13,124.0,English,"Adventure, Action, Fantasy",64.0,107,75.0,22625,-11.0,-7.349,0.159
+Alien,1979.0,1979-05-25,R,116.0,English,"Sci-Fi, Horror",93.0,209,94.0,22386,-1.0,8.87,0.086
+The Amazing Spider-Man,2012.0,2012-07-03,PG-13,136.0,English,"Action, Adventure, Mystery & Thriller, Romance, Fantasy",71.0,336,77.0,22229,-6.0,-10.9,0.128
+Over the Hedge,2006.0,2006-05-19,PG,83.0,English,"Kids & Family, Comedy, Adventure, Animation",75.0,171,71.0,22154,4.0,-2.241,0.08
+"10,000 B.C.",2008.0,2008-03-07,PG-13,109.0,English,"Adventure, Action, Drama",10.0,147,37.0,21535,-27.0,-11.421,0.376
+A Knight's Tale,2001.0,2001-05-08,PG-13,132.0,English,"Action, Adventure, Comedy, Romance, History, Drama",59.0,154,79.0,21471,-20.0,-17.955,0.249
+Ocean's Twelve,2004.0,2004-12-10,PG-13,125.0,English,"Comedy, Drama, Crime",55.0,186,60.0,21381,-5.0,-11.632,0.125
+A Beautiful Mind,2002.0,2002-01-04,PG-13,135.0,English,"Biography, Drama, Mystery & Thriller, Romance",74.0,214,93.0,20849,-19.0,-19.348,0.264
+Avengers: Endgame,2019.0,2019-04-26,PG-13,181.0,English,"Action, Adventure, Fantasy, Sci-Fi",94.0,552,90.0,20529,4.0,-2.879,0.19
+Harry Potter and the Deathly Hallows: Part 2,2011.0,2011-07-15,PG-13,131.0,English,"Fantasy, Adventure, Mystery & Thriller",96.0,332,89.0,19659,7.0,-5.348,0.15
+Casablanca,1943.0,1943-01-23,PG,102.0,English,Drama,99.0,136,95.0,19597,4.0,-0.581,0.136
+Monsters vs. Aliens,2009.0,2009-03-27,PG,94.0,English,"Kids & Family, Comedy, Adventure, Sci-Fi, Animation",73.0,216,59.0,19166,14.0,-0.565,0.073
+Cinderella,1950.0,1950-02-15,G,74.0,English,"Kids & Family, Fantasy, Animation",95.0,42,80.0,19013,15.0,10.545,0.093
+Man on Fire,2004.0,2004-04-21,R,145.0,English,"Crime, Drama, Action, Mystery & Thriller, Adventure",39.0,166,89.0,18984,-50.0,-2.116,0.119
+"The Godfather, Part II",2012.0,2012-04-19,R,202.0,English,"Crime, Drama",96.0,129,97.0,18719,-1.0,-2.809,0.193
+Full Metal Jacket,1987.0,1987-06-01,R,116.0,English,"War, History, Drama",90.0,87,94.0,18516,-4.0,-7.962,0.277
+Fracture,2007.0,2007-04-20,R,113.0,English,Mystery & Thriller,72.0,170,74.0,18436,-2.0,-5.591,0.409
+A Bug's Life,1998.0,1998-11-14,G,96.0,English,"Kids & Family, Comedy, Adventure, Animation",92.0,90,73.0,18203,19.0,0.117,0.233
+Surf's Up,2007.0,2007-06-08,PG,85.0,English,"Kids & Family, Comedy, Adventure, Animation",78.0,144,70.0,17974,8.0,-2.974,0.117
+Coraline,2009.0,2009-02-06,PG,100.0,English,"Kids & Family, Fantasy, Animation",91.0,275,74.0,17838,17.0,-2.994,0.194
+Kingdom of Heaven,2005.0,2005-05-06,R,145.0,English,"History, Drama, War, Adventure",39.0,190,72.0,17217,-33.0,-3.953,0.138
+The Mummy: Tomb of the Dragon Emperor,2008.0,2008-08-01,PG-13,112.0,English,"Adventure, Action, Fantasy",13.0,174,30.0,17196,-17.0,-8.508,0.136
+Bee Movie,2007.0,2007-11-02,PG,91.0,English,"Kids & Family, Comedy, Adventure, Animation",49.0,171,53.0,16787,-4.0,-3.181,0.166
+Ice Age: Dawn of the Dinosaurs,2009.0,2009-07-01,PG,94.0,English,"Kids & Family, Comedy, Adventure, Animation",46.0,164,63.0,16624,-17.0,0.493,0.118
+Guardians of the Galaxy,2014.0,2014-08-01,PG-13,121.0,English,"Sci-Fi, Adventure, Action, Fantasy, Comedy",91.0,337,92.0,16287,-1.0,-1.769,0.195
+Speed,1994.0,1994-06-10,R,111.0,English,"Action, Mystery & Thriller, Drama",95.0,78,77.0,16115,18.0,-6.322,0.281
+Spider-Man: No Way Home,2021.0,2021-12-17,PG-13,148.0,English,"Action, Adventure, Fantasy, Comedy",93.0,431,97.0,15978,-4.0,-15.594,0.295
+Face/Off,1997.0,1997-06-27,R,138.0,English,"Action, Crime, Drama",93.0,97,82.0,15959,11.0,-4.814,0.157
+Bambi,1942.0,1942-08-21,G,70.0,English,"Kids & Family, Fantasy, Adventure, Animation",91.0,55,73.0,15622,18.0,10.864,0.066
+True Grit,2010.0,2010-12-22,PG-13,110.0,English,"Western, Drama, Adventure",95.0,277,85.0,15318,10.0,-7.844,0.41
+Mr. Deeds,2002.0,2002-06-28,PG-13,96.0,English,"Comedy, Romance",23.0,151,59.0,15281,-36.0,-16.916,0.579
+Lady and the Tramp,1955.0,1955-06-16,G,76.0,English,"Kids & Family, Romance, Comedy, Animation",91.0,46,80.0,15254,11.0,6.441,0.098
+Wicked,2024.0,2024-11-22,PG,160.0,English,"Kids & Family, Musical, Fantasy, Adventure",88.0,407,95.0,15148,-7.0,-15.077,0.155
+The Last Airbender,2010.0,2010-07-01,PG,103.0,English,"Fantasy, Adventure",5.0,192,30.0,14871,-25.0,-6.8,0.177
+Blade,1998.0,1998-08-21,R,120.0,English,"Horror, Action, Fantasy, Adventure",59.0,113,78.0,14808,-19.0,0.429,0.124
+The Professional,1994.0,1994-09-14,R,115.0,English,"Mystery & Thriller, Action, Crime, Drama",76.0,66,95.0,14688,-19.0,-5.288,0.271
+Ghost,1990.0,1990-07-13,PG-13,127.0,English,"Fantasy, Romance, Drama, Mystery & Thriller",74.0,82,80.0,14556,-6.0,-14.918,0.152
+Zack Snyder's Justice League,,,R,242.0,English,"Action, Adventure, Fantasy",71.0,314,92.0,14471,-21.0,-5.776,0.144
+Drive,2011.0,2011-09-16,R,100.0,English,"Crime, Drama, Action",93.0,275,79.0,14326,14.0,-9.114,0.34
+Interstellar,2014.0,2014-11-05,PG-13,165.0,English,"Sci-Fi, Adventure, Action",73.0,374,87.0,14194,-14.0,-2.634,0.133
+It's a Wonderful Life,1946.0,1946-01-07,PG,129.0,English,"Holiday, Comedy, Drama",94.0,97,95.0,14105,-1.0,-3.777,0.055
+"Crouching Tiger, Hidden Dragon",2000.0,2000-10-09,PG-13,120.0,Chinese,"Adventure, Action, Drama, Fantasy",96.0,216,86.0,13675,10.0,-7.919,0.314
+Stand by Me,1986.0,1986-08-08,R,89.0,English,"Comedy, Drama",89.0,138,94.0,13441,-5.0,-4.189,0.203
+Taxi Driver,1976.0,1976-02-08,R,113.0,English,"Crime, Drama, Mystery & Thriller",89.0,163,93.0,13422,-4.0,-3.416,0.104
+Die Hard With a Vengeance,1995.0,1995-05-19,R,128.0,English,"Action, Adventure, Mystery & Thriller",60.0,80,83.0,13403,-23.0,-5.626,0.126
+Mission: Impossible - Ghost Protocol,2011.0,2011-12-21,PG-13,133.0,English,"Action, Adventure, Mystery & Thriller",93.0,246,76.0,13400,17.0,-2.771,0.173
+The Lion King,2019.0,2019-07-19,PG,118.0,English,"Kids & Family, Adventure, Drama",52.0,435,88.0,13329,-36.0,-15.658,0.61
+Salt,2010.0,2010-07-23,PG-13,105.0,English,"Action, Mystery & Thriller",62.0,250,59.0,13073,3.0,-15.389,0.323
+The Covenant,2006.0,2006-09-08,PG-13,97.0,English,"Horror, Mystery & Thriller",4.0,76,62.0,12977,-58.0,-4.174,0.494
+Super Troopers,2002.0,2002-02-15,R,103.0,English,Comedy,37.0,90,90.0,12969,-53.0,-11.075,0.613
+Pocahontas,1995.0,1995-06-15,G,87.0,English,"Kids & Family, Adventure, Animation",59.0,116,64.0,12900,-5.0,3.936,0.238
+Con Air,1997.0,1997-06-06,R,115.0,English,Action,59.0,70,75.0,12757,-16.0,-8.914,0.247
+King Arthur,2004.0,2004-06-28,PG-13,126.0,English,"History, Drama, Adventure, Action, War",30.0,187,59.0,12627,-29.0,-8.494,0.26
+The Princess Diaries 2: Royal Engagement,2004.0,2004-08-11,G,113.0,English,"Kids & Family, Romance, Comedy",25.0,119,59.0,12466,-34.0,-6.589,0.254
+Perfume: The Story of a Murderer,2007.0,2007-01-05,R,145.0,English,"Mystery & Thriller, History, Drama",59.0,131,74.0,12427,-15.0,-7.165,0.15
+Knives Out,2019.0,2019-11-27,PG-13,130.0,English,"Mystery & Thriller, Crime, Drama, Comedy",97.0,472,92.0,12380,5.0,-11.351,0.385
+Heat,1995.0,1995-12-15,R,170.0,English,"Crime, Drama",84.0,155,94.0,12198,-10.0,-5.282,0.09
+Aladdin,2019.0,2019-05-24,PG,128.0,English,"Kids & Family, Musical, Comedy, Fantasy, Adventure, Romance",57.0,387,94.0,12148,-37.0,-18.166,0.322
+Captain America: The Winter Soldier,2014.0,2014-04-04,PG-13,135.0,English,"Action, Adventure, Fantasy",90.0,310,92.0,12024,-2.0,-7.045,0.173
+Princess Mononoke,1997.0,1997-07-12,PG-13,133.0,Japanese,"Adventure, Fantasy, Anime",93.0,123,94.0,12005,-1.0,-4.325,0.075
+Avengers: Infinity War,2018.0,2018-04-27,PG-13,149.0,English,"Action, Adventure, Fantasy, Sci-Fi",85.0,487,92.0,11954,-7.0,-3.213,0.33
+Alita: Battle Angel,2019.0,2019-02-14,PG-13,122.0,English,"Sci-Fi, Action, Adventure, Fantasy, Animation",61.0,329,91.0,11790,-30.0,1.345,0.316
+Oldboy,2005.0,2005-03-25,R,120.0,Korean,"Action, Mystery & Thriller",82.0,160,94.0,11752,-12.0,-6.584,0.327
+Bridesmaids,2011.0,2011-03-14,R,124.0,English,"Comedy, Romance",89.0,292,76.0,11737,13.0,-7.001,0.235
+Citizen Kane,1941.0,1941-05-01,PG,119.0,English,Drama,99.0,132,90.0,11618,9.0,-11.76,0.089
+Sleeping Beauty,1959.0,1959-01-29,G,75.0,English,"Kids & Family, Fantasy, Animation",90.0,49,80.0,11505,10.0,8.967,0.067
+Frozen,2013.0,2013-11-22,PG,102.0,English,"Kids & Family, Musical, Comedy, Adventure, Fantasy, Animation",89.0,250,85.0,11305,4.0,0.091,0.114
+Tangled,2010.0,2010-11-24,PG,101.0,English,"Kids & Family, Musical, Comedy, Fantasy, Adventure, Animation",89.0,227,87.0,11246,2.0,2.06,0.163
+Mad Max: Fury Road,2015.0,2015-05-15,R,120.0,English,"Action, Adventure, Sci-Fi",97.0,439,86.0,11200,11.0,-7.133,0.176
+The Lives of Others,2007.0,2007-02-09,R,137.0,German,"History, Drama, Mystery & Thriller",92.0,162,96.0,11155,-4.0,-3.79,0.199
+The LEGO Movie,2014.0,2014-02-07,PG,95.0,English,"Kids & Family, Comedy, Adventure, Action, Sci-Fi, Animation",96.0,259,87.0,11142,9.0,2.211,0.159
+Bolt,2008.0,2008-11-21,PG,96.0,English,"Kids & Family, Comedy, Adventure, Animation",90.0,189,74.0,11109,16.0,1.588,0.104
+Madagascar: Escape 2 Africa,2008.0,2008-11-07,PG,88.0,English,"Kids & Family, Comedy, Adventure, Animation",64.0,154,66.0,11099,-2.0,0.284,0.101
+X-Men: Days of Future Past,2014.0,2014-05-23,PG-13,131.0,English,"Action, Adventure, Fantasy, Sci-Fi",90.0,328,91.0,11022,-1.0,-0.249,0.168
+Avatar: The Way of Water,2022.0,2022-12-16,PG-13,192.0,English,"Sci-Fi, Adventure, Action, Fantasy",76.0,455,92.0,10883,-16.0,-7.259,0.293
+Red,2010.0,2010-10-15,PG-13,110.0,English,"Action, Comedy",72.0,216,72.0,10850,0.0,-10.188,0.262
+The Other Guys,2010.0,2010-08-06,PG-13,107.0,English,"Comedy, Action",78.0,203,60.0,10387,18.0,-12.822,0.218
+Avengers: Age of Ultron,2015.0,2015-05-01,PG-13,141.0,English,"Action, Adventure, Fantasy, Sci-Fi",75.0,370,82.0,10365,-7.0,-2.873,0.138
+9,2009.0,2009-09-09,PG-13,79.0,English,"Adventure, Fantasy, Sci-Fi, War, Animation",57.0,183,56.0,10343,1.0,-5.086,0.138
+Psycho,2003.0,2003-03-08,R,109.0,English,"Horror, Mystery & Thriller",97.0,118,95.0,10320,2.0,10.344,0.624
+Cloudy With a Chance of Meatballs,2009.0,2009-09-18,PG,90.0,English,"Kids & Family, Comedy, Fantasy, Animation",85.0,142,72.0,10168,13.0,-0.43,0.206
+Chicken Little,2005.0,2005-11-04,G,81.0,English,"Kids & Family, Comedy, Animation",36.0,160,47.0,10157,-11.0,1.026,0.126
+101 Dalmatians,,,G,79.0,English,"Kids & Family, Comedy, Adventure, Animation",98.0,54,76.0,10054,22.0,4.314,0.412
+The Wedding Planner,2001.0,2001-01-26,PG-13,102.0,English,"Romance, Comedy",17.0,105,59.0,10018,-42.0,-18.269,0.617
+World Trade Center,2006.0,2006-08-09,PG-13,129.0,English,Drama,66.0,231,60.0,9943,6.0,-20.572,0.231
+Ghostbusters,2016.0,2016-07-15,PG-13,117.0,English,"Comedy, Fantasy, Adventure, Action",74.0,392,49.0,9853,25.0,-7.326,0.271
+Snow White and the Seven Dwarfs,,,G,80.0,English,"Kids & Family, Fantasy, Animation",97.0,127,78.0,9846,19.0,3.373,0.369
+Big,1988.0,1988-06-03,PG,104.0,English,"Kids & Family, Comedy, Fantasy, Drama, Romance",98.0,81,82.0,9807,16.0,-9.046,0.411
+Shrek Forever After,2010.0,2010-05-21,PG,95.0,English,"Kids & Family, Comedy, Adventure, Fantasy, Animation",58.0,196,54.0,9718,4.0,0.939,0.159
+Grown Ups,2010.0,2010-06-25,PG-13,102.0,English,Comedy,10.0,166,62.0,9662,-52.0,-12.06,0.568
+Deadpool & Wolverine,2024.0,2024-07-26,R,105.0,English,"Action, Adventure, Comedy",77.0,421,94.0,9655,-17.0,-14.874,0.413
+Antz,1998.0,1998-10-02,PG,87.0,English,"Kids & Family, Romance, Comedy, Adventure, Fantasy, Animation",92.0,90,52.0,9627,40.0,-2.699,0.176
+Brave,2012.0,2012-06-22,PG,93.0,English,"Kids & Family, Adventure, Comedy, Animation",78.0,255,75.0,9591,3.0,0.433,0.096
+Sinners,2025.0,2025-04-18,R,137.0,English,"Horror, Mystery & Thriller, Drama",97.0,437,96.0,9513,1.0,1.101,0.217
+Without a Paddle,2004.0,2004-08-20,PG-13,99.0,English,"Comedy, Adventure, Mystery & Thriller",15.0,123,68.0,9477,-53.0,-7.472,0.535
+The Princess and the Frog,2009.0,2009-11-25,G,95.0,English,"Kids & Family, Comedy, Adventure, Musical, Fantasy, Animation",86.0,201,74.0,9338,12.0,0.258,0.095
+Disney's A Christmas Carol,2009.0,2009-11-06,PG,95.0,English,"Kids & Family, Holiday, Fantasy, Drama, Animation",52.0,196,58.0,9275,-6.0,-2.362,0.165
+Untraceable,2008.0,2008-01-25,R,101.0,English,"Mystery & Thriller, Crime, Drama",16.0,144,52.0,9187,-36.0,-3.659,0.287
+Wallace & Gromit: The Curse of the Were-Rabbit,2005.0,2005-10-05,G,82.0,English,"Kids & Family, Comedy, Adventure, Animation",95.0,184,79.0,9130,16.0,0.854,0.113
+Black Panther,2019.0,2019-02-01,PG-13,134.0,English,"Action, Adventure, Fantasy",96.0,526,79.0,9118,17.0,-10.003,0.421
+Rango,2012.0,2012-01-27,PG,105.0,English,"Kids & Family, Comedy, Adventure, Animation",88.0,222,70.0,9076,18.0,1.852,0.2
+Spider-Man: Far From Home,2019.0,2019-07-02,PG-13,129.0,English,"Action, Adventure, Fantasy, Comedy, Sci-Fi",91.0,454,95.0,8963,-4.0,-6.436,0.434
+Road Trip,2000.0,2000-05-11,R,94.0,English,Comedy,59.0,96,65.0,8938,-6.0,-11.99,0.641
+The Twilight Saga: Breaking Dawn Part 1,2011.0,2011-11-18,PG-13,117.0,English,"Romance, Fantasy",26.0,210,60.0,8903,-34.0,-22.396,0.517
+A Night at the Roxbury,1998.0,1998-10-01,PG-13,81.0,English,Comedy,11.0,53,69.0,8790,-58.0,-14.911,0.669
+The Santa Clause,1994.0,1994-11-11,PG,97.0,English,"Kids & Family, Holiday, Comedy",73.0,59,66.0,8122,7.0,-9.986,0.56
+Flushed Away,2006.0,2006-11-03,PG,85.0,English,"Kids & Family, Comedy, Adventure, Animation",72.0,137,65.0,8052,7.0,-2.186,0.13
+Frozen II,2019.0,2019-11-22,PG,103.0,English,"Kids & Family, Musical, Comedy, Adventure, Animation",77.0,342,92.0,7973,-15.0,-8.543,0.137
+Nick and Norah's Infinite Playlist,2008.0,2008-10-03,PG-13,89.0,English,"Romance, Comedy, LGBTQ+",74.0,184,65.0,7959,9.0,-22.227,0.371
+Singin' in the Rain,1952.0,1952-04-10,G,102.0,English,"Musical, Comedy",100.0,78,95.0,7923,5.0,-2.686,0.105
+Toy Story 4,2019.0,2019-06-21,G,100.0,English,"Kids & Family, Comedy, Adventure, Fantasy, Animation",96.0,457,94.0,7884,2.0,-5.181,0.265
+Bad Boys for Life,2020.0,2020-01-17,R,124.0,English,"Action, Comedy, Crime, Drama",76.0,270,96.0,7831,-20.0,2.12,0.546
+The SpongeBob SquarePants Movie,2004.0,2004-11-19,PG,83.0,English,"Kids & Family, Comedy, Adventure, Animation",68.0,124,79.0,7714,-11.0,0.518,0.356
+Fantastic Mr. Fox,2009.0,2009-11-13,PG,88.0,English,"Kids & Family, Comedy, Adventure, Animation",93.0,246,85.0,7705,8.0,0.858,0.085
+Scream 2,1997.0,1997-12-12,R,120.0,English,"Horror, Comedy",83.0,133,59.0,7358,24.0,2.306,0.266
+Tarzan,1999.0,1999-06-17,G,88.0,English,"Kids & Family, Musical, Drama, Adventure, Animation",90.0,158,75.0,7326,15.0,-1.184,0.249
+Inside Out,2015.0,2015-06-19,PG,96.0,English,"Kids & Family, Comedy, Fantasy, Animation",98.0,381,89.0,7308,9.0,0.652,0.272
+Catwoman,2004.0,2004-07-19,PG-13,104.0,English,"Action, Adventure",8.0,195,18.0,7281,-10.0,-13.977,0.464
+Caddyshack,1980.0,1980-07-25,R,98.0,English,Comedy,73.0,62,87.0,7253,-14.0,-10.203,0.162
+Megamind,2010.0,2010-11-05,PG,95.0,English,"Kids & Family, Comedy, Adventure, Animation",73.0,179,72.0,7241,1.0,2.517,0.064
+Jurassic World Rebirth,2025.0,2025-07-02,PG-13,133.0,English,"Action, Adventure, Sci-Fi",50.0,403,70.0,7237,-20.0,-11.106,0.312
+American Sniper,2015.0,2015-01-16,R,132.0,English,"War, Biography, Drama, Action, Mystery & Thriller",71.0,299,84.0,7197,-13.0,-5.772,0.157
+Logan,2017.0,2017-03-03,R,137.0,English,"Action, Adventure, Fantasy",93.0,428,91.0,7169,2.0,-10.336,0.389
+The Super Mario Bros. Movie,2023.0,2023-04-05,PG,92.0,English,"Kids & Family, Comedy, Adventure, Animation",59.0,290,95.0,7165,-36.0,-2.068,0.22
+The Martian,2015.0,2015-10-02,PG-13,142.0,English,"Sci-Fi, Adventure, Drama",91.0,385,91.0,7136,0.0,-9.275,0.194
+Black Panther: Wakanda Forever,2022.0,2022-11-11,PG-13,161.0,English,"Action, Adventure, Fantasy",84.0,451,93.0,7104,-9.0,-16.44,0.197
+A Boy Named Charlie Brown,1969.0,1969-12-04,G,85.0,English,"Kids & Family, Comedy, Animation",95.0,21,86.0,7031,9.0,-2.556,0.098
+Noah,2014.0,2014-03-28,PG-13,137.0,English,"History, Drama, Adventure, Fantasy",75.0,261,41.0,6945,34.0,-12.749,0.185
+Monsters University,2013.0,2013-06-21,G,102.0,English,"Kids & Family, Comedy, Fantasy, Adventure, Animation",80.0,201,81.0,6774,-1.0,4.05,0.073
+12 Angry Men,1957.0,1957-04-20,,95.0,English,Drama,100.0,63,97.0,6771,3.0,13.94,0.225
+Seven Samurai,1956.0,1956-11-19,,208.0,Japanese,Action,100.0,103,97.0,6736,3.0,4.893,0.072
+Bohemian Rhapsody,2018.0,2018-11-02,PG-13,135.0,British English,"Biography, History, Drama, Music, LGBTQ+",60.0,418,85.0,6734,-25.0,-20.512,0.545
+Kung Fu Panda 2,2011.0,2011-05-26,PG,86.0,English,"Kids & Family, Comedy, Adventure, Animation",82.0,186,74.0,6636,8.0,-1.711,0.085
+The Hobbit: The Battle of the Five Armies,2014.0,2014-12-17,PG-13,144.0,English,"Fantasy, Adventure, Action",59.0,265,74.0,6623,-15.0,-3.636,0.254
+The Painted Veil,2007.0,2007-01-05,PG-13,125.0,English,"Romance, History, Drama",74.0,141,85.0,6611,-11.0,-11.465,0.195
+Sonic the Hedgehog,2020.0,2020-02-14,PG,100.0,English,"Kids & Family, Comedy, Adventure",64.0,254,93.0,6549,-29.0,-8.951,0.543
+Mission: Impossible - The Final Reckoning,2025.0,2025-05-23,PG-13,170.0,English,"Action, Adventure, Mystery & Thriller",80.0,427,88.0,6547,-8.0,-10.053,0.099
+Elvis,2022.0,2022-06-24,PG-13,159.0,English,"Biography, Drama, Music",77.0,401,94.0,6542,-17.0,-14.546,0.257
+The Adventures of Tintin,2011.0,2011-12-21,PG,107.0,English,"Kids & Family, Adventure, Action, Mystery & Thriller, Animation",75.0,233,74.0,6480,1.0,0.617,0.139
+Wicked: For Good,2025.0,2025-11-21,PG,137.0,English,"Kids & Family, Musical, Fantasy, Adventure",66.0,352,92.0,6443,-26.0,-7.84,0.18
+Beetlejuice Beetlejuice,2024.0,2024-09-06,PG-13,100.0,English,"Comedy, Fantasy, Horror",75.0,379,78.0,6443,-3.0,-4.409,0.676
+Cars 2,2011.0,2011-06-24,G,107.0,English,"Kids & Family, Comedy, Adventure, Animation",40.0,216,50.0,6281,-10.0,3.408,0.178
+The Bounty Hunter,2010.0,2010-03-19,PG-13,111.0,English,"Romance, Comedy, Action, Adventure, Mystery & Thriller",13.0,150,51.0,6274,-38.0,-15.215,0.355
+Pinocchio,1940.0,1940-02-07,G,87.0,English,"Kids & Family, Fantasy, Animation",100.0,64,73.0,6201,27.0,-1.369,0.067
+Arrival,2017.0,2017-01-27,PG-13,116.0,English,"Sci-Fi, Mystery & Thriller, Drama",94.0,441,83.0,6099,11.0,-14.161,0.633
+Spider-Man: Into the Spider-Verse,2018.0,2018-12-14,PG,117.0,English,"Kids & Family, Action, Adventure, Comedy, Fantasy, Animation",97.0,399,93.0,6081,4.0,-2.926,0.254
+Shang-Chi and the Legend of the Ten Rings,2021.0,2021-09-03,PG-13,133.0,English,"Action, Adventure, Fantasy",92.0,345,98.0,6032,-6.0,-10.778,0.396
+Oppenheimer,2023.0,2023-07-21,R,180.0,English,"Biography, History, Drama",93.0,513,91.0,6022,2.0,-5.874,0.133
+The Fantastic Four: First Steps,2025.0,2025-07-25,PG-13,114.0,English,"Action, Adventure, Sci-Fi, Fantasy",86.0,407,90.0,5968,-4.0,-9.82,0.363
+Elektra,2005.0,2005-01-14,PG-13,96.0,English,"Action, Adventure",11.0,164,29.0,5903,-18.0,-9.377,0.523
+The Iron Giant,1999.0,1999-07-31,PG,86.0,English,"Kids & Family, Adventure, Fantasy, Action, Animation",96.0,144,90.0,5866,6.0,0.573,0.192
+Just Go With It,2011.0,2011-02-11,PG-13,115.0,English,"Romance, Comedy",20.0,136,59.0,5856,-39.0,-16.846,0.286
+Drop Dead Fred,1991.0,1991-04-19,PG-13,103.0,English,"Fantasy, Comedy, Drama",11.0,36,77.0,5810,-66.0,-8.374,0.21
+Pathfinder,2007.0,2007-04-13,R,99.0,English,"Adventure, Action",8.0,75,36.0,5805,-28.0,-13.577,0.344
+Splice,2010.0,2010-06-04,R,107.0,English,"Sci-Fi, Horror",75.0,200,37.0,5800,38.0,6.387,0.264
+Spanglish,2004.0,2004-12-11,PG-13,130.0,English,"Comedy, Drama, Romance",54.0,166,60.0,5786,-6.0,-16.994,0.444
+Guardians of the Galaxy Vol. 3,2023.0,2023-05-05,PG-13,150.0,English,"Sci-Fi, Adventure, Action, Fantasy, Comedy",82.0,410,94.0,5747,-12.0,-10.081,0.181
+Babylon A.D.,2008.0,2008-08-29,PG-13,90.0,English,"Sci-Fi, Action, Adventure, Mystery & Thriller",7.0,102,26.0,5747,-19.0,-10.645,0.353
+Zootopia,2016.0,2016-03-04,PG,108.0,English,"Kids & Family, Comedy, Adventure, Animation",98.0,298,92.0,5671,6.0,2.667,0.169
+Ready Player One,2018.0,2018-03-11,PG-13,140.0,English,"Sci-Fi, Adventure, Action, Fantasy",71.0,442,77.0,5643,-6.0,-4.545,0.3
+The Little Mermaid,2023.0,2023-05-26,PG,135.0,English,"Kids & Family, Musical, Fantasy, Romance",67.0,349,93.0,5631,-26.0,-14.329,0.228
+Lawrence of Arabia,1962.0,1962-12-16,PG,222.0,English,"Biography, History, Drama, Adventure",93.0,132,93.0,5608,0.0,-6.314,0.074
+The Informant!,2009.0,2009-09-18,R,108.0,English,"Comedy, Drama, Crime",79.0,227,44.0,5555,35.0,-0.827,0.379
+F1 The Movie,2025.0,2025-06-27,PG-13,155.0,English,"Action, Drama, Sports",82.0,367,97.0,5540,-15.0,-15.797,0.159
+Rio,2011.0,2011-04-15,G,96.0,English,"Kids & Family, Comedy, Adventure, Musical, Animation",72.0,151,71.0,5520,1.0,1.704,0.088
+Grave of the Fireflies,1994.0,1994-10-08,,88.0,Japanese,"Drama, War, Anime",100.0,50,95.0,5497,5.0,5.414,0.131
+How to Train Your Dragon 2,2014.0,2014-06-13,PG,102.0,English,"Kids & Family, Fantasy, Adventure, Comedy, Action, Animation",92.0,185,90.0,5315,2.0,1.228,0.11
+Downton Abbey,2019.0,2019-09-20,PG,122.0,English,Drama,84.0,262,94.0,5301,-10.0,-18.829,0.554
+Harriet,2019.0,2019-11-01,PG-13,125.0,English,"Biography, History, Drama",74.0,233,97.0,5289,-23.0,-19.277,0.47
+Anchorman 2: The Legend Continues,2013.0,2013-12-18,PG-13,119.0,English,Comedy,74.0,200,52.0,5269,22.0,-20.617,0.57
+Fantastic Four,2015.0,2015-08-07,PG-13,100.0,English,"Action, Adventure, Sci-Fi, Fantasy",9.0,260,18.0,5151,-9.0,-8.241,0.438
+Thunderbolts*,2025.0,2025-05-02,PG-13,126.0,English,"Action, Adventure, Crime, Drama",88.0,382,93.0,5138,-5.0,-15.632,0.477
+Before Sunrise,1995.0,1995-01-27,R,101.0,English,"Romance, Drama",100.0,51,93.0,5131,7.0,0.564,0.431
+Robots,2005.0,2005-03-11,PG,90.0,English,"Kids & Family, Comedy, Sci-Fi, Fantasy, Adventure, Animation",64.0,181,54.0,5100,10.0,3.572,0.225
+Whiplash,2014.0,2014-01-16,R,106.0,English,"Drama, Music, Mystery & Thriller",94.0,304,94.0,5070,0.0,-3.979,0.52
+Joe Dirt,2001.0,2001-04-11,PG-13,91.0,English,Comedy,9.0,74,64.0,5001,-55.0,-17.538,0.714
+Nightcrawler,2014.0,2014-10-31,R,116.0,English,"Mystery & Thriller, Crime, Drama",95.0,279,86.0,4999,9.0,-10.58,0.332
+Jungle Cruise,2021.0,2021-07-30,PG-13,127.0,English,"Adventure, Action, Comedy, Fantasy",62.0,349,92.0,4897,-30.0,-10.62,0.367
+Ford v Ferrari,2019.0,2019-08-30,PG-13,152.0,English,"History, Drama, Biography",92.0,364,98.0,4840,-6.0,-22.396,0.369
+Eternals,2021.0,2021-11-05,PG-13,157.0,English,"Action, Adventure, Fantasy",47.0,417,77.0,4695,-30.0,-10.432,0.139
+Avatar: Fire and Ash,2025.0,2025-12-19,PG-13,192.0,English,"Sci-Fi, Adventure, Action, Fantasy",66.0,353,90.0,4678,-24.0,-8.948,0.243
+The Hateful Eight,2015.0,2015-12-30,R,168.0,English,Western,74.0,333,77.0,4675,-3.0,-7.328,0.183
+She's Out of My League,2010.0,2010-03-12,R,104.0,English,"Romance, Comedy",57.0,133,59.0,4663,-2.0,-3.082,0.449
+Lilo & Stitch,2025.0,2025-05-23,PG,108.0,English,"Kids & Family, Comedy, Sci-Fi, Action, Adventure",73.0,219,91.0,4581,-18.0,-8.931,0.413
+Spider-Man: Across the Spider-Verse,2023.0,2023-06-02,PG,140.0,English,"Kids & Family, Action, Adventure, Comedy, Fantasy, Animation",95.0,397,95.0,4558,0.0,-7.522,0.155
+Twisters,2024.0,2024-07-19,PG-13,122.0,English,"Action, Adventure, Mystery & Thriller",75.0,399,90.0,4535,-15.0,-17.46,0.471
+Puss in Boots,2011.0,2011-10-28,PG,90.0,English,"Kids & Family, Comedy, Adventure, Animation",85.0,151,68.0,4524,17.0,-1.854,0.113
+Heathers,1989.0,1989-03-31,R,102.0,English,"Comedy, Crime, Drama",95.0,59,83.0,4484,12.0,-3.842,0.454
+Black Widow,2021.0,2021-07-09,PG-13,133.0,English,"Action, Adventure",79.0,462,91.0,4471,-12.0,-10.791,0.407
+Carlito's Way,1993.0,1993-11-10,R,144.0,English,"Crime, Drama, Mystery & Thriller",84.0,51,91.0,4455,-7.0,-7.08,0.175
+Fifty Shades of Grey,2015.0,2015-02-13,R,125.0,English,"Romance, Drama",25.0,279,41.0,4452,-16.0,-7.971,0.292
+Gladiator II,2024.0,2024-11-22,R,148.0,English,"History, Drama, Adventure, Action",70.0,407,80.0,4414,-10.0,-5.321,0.27
+Captain America: Brave New World,2025.0,2025-02-14,PG-13,118.0,English,"Action, Adventure, Fantasy",46.0,367,75.0,4407,-29.0,-18.742,0.521
+How to Train Your Dragon,2025.0,2025-06-13,PG,125.0,English,"Kids & Family, Fantasy, Adventure, Action, Comedy",77.0,261,97.0,4393,-20.0,-12.395,0.279
+Just Mercy,2020.0,2020-01-10,PG-13,136.0,English,Drama,85.0,311,99.0,4320,-14.0,-16.947,0.512
+Superman,2025.0,2025-07-11,PG-13,129.0,English,"Action, Adventure, Sci-Fi, Fantasy",83.0,502,90.0,4311,-7.0,-13.495,0.431
+Queen & Slim,2019.0,2019-11-14,R,132.0,English,"Crime, Drama, Romance",82.0,233,92.0,4259,-10.0,-10.783,0.388
+Stop-Loss,2008.0,2008-03-28,R,113.0,English,"Drama, War",64.0,141,26.0,4224,38.0,-11.972,0.282
+The Jungle Book,2016.0,2016-04-15,PG,105.0,English,"Kids & Family, Adventure, Action, Fantasy",94.0,327,86.0,4198,8.0,-2.019,0.611
+The Secret Life of Pets 2,2019.0,2019-06-07,PG,90.0,English,"Kids & Family, Comedy, Adventure, Animation",60.0,163,90.0,4172,-30.0,-9.818,0.395
+Sunshine Cleaning,2008.0,2008-01-20,R,102.0,English,"Comedy, Drama",74.0,177,63.0,4166,11.0,4.049,0.551
+Fever Pitch,2005.0,2005-04-08,PG-13,103.0,English,"Romance, Comedy",66.0,194,60.0,4135,6.0,-24.891,0.613
+Kiki's Delivery Service,1990.0,1990-12-20,G,103.0,Japanese,"Kids & Family, Adventure, Anime",98.0,47,89.0,4126,9.0,0.18,0.182
+Mulan,,,PG-13,116.0,English,"Adventure, Action",71.0,325,46.0,4065,25.0,-6.832,0.479
+The Prince & Me,2004.0,2004-03-27,PG,110.0,English,"Romance, Comedy",28.0,120,59.0,4056,-31.0,-9.028,0.451
+The Emoji Movie,2017.0,2017-07-28,PG,86.0,English,"Kids & Family, Comedy, Adventure, Animation",6.0,132,36.0,4051,-30.0,-5.242,0.407
+John Wick: Chapter 4,2023.0,2023-03-13,R,180.0,English,"Action, Mystery & Thriller",94.0,385,93.0,4041,1.0,-11.43,0.151
+Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train,2021.0,2021-04-23,R,117.0,Japanese,"Fantasy, Adventure, Action, Anime",98.0,49,99.0,4040,-1.0,-5.829,0.102
+Where the Crawdads Sing,2022.0,2022-07-15,PG-13,125.0,English,"Drama, Mystery & Thriller",34.0,221,96.0,4024,-62.0,-21.365,0.489
+Strange Wilderness,2008.0,2008-02-01,R,86.0,English,Comedy,2.0,48,35.0,4007,-33.0,-2.788,0.391
+I Love You Phillip Morris,2009.0,2009-01-19,R,98.0,English,"Drama, LGBTQ+, Romance, Biography, Mystery & Thriller",71.0,160,61.0,4006,10.0,-3.589,0.31
+Reagan,2024.0,2024-08-30,PG-13,141.0,English,"Biography, Drama",18.0,68,98.0,3996,-80.0,-16.182,0.15
+Fantastic Beasts and Where to Find Them,2016.0,2016-11-18,PG-13,127.0,English,"Fantasy, Adventure",74.0,343,79.0,3984,-5.0,-10.082,0.506
+Ghostbusters: Afterlife,2021.0,2021-11-19,PG-13,124.0,English,"Comedy, Fantasy, Adventure",63.0,309,94.0,3947,-31.0,-13.088,0.557
+Spy,2015.0,2015-06-05,R,130.0,English,"Comedy, Action, Crime, Drama, Adventure",94.0,260,78.0,3904,16.0,-5.524,0.193
+Butch Cassidy and the Sundance Kid,1969.0,1969-09-23,PG,110.0,English,"Western, Action",89.0,63,92.0,3898,-3.0,-9.292,0.076
+F9 The Fast Saga,2021.0,2021-06-25,PG-13,145.0,English,"Action, Adventure, Crime",59.0,317,82.0,3875,-23.0,-6.72,0.185
+Godzilla vs. Kong,2021.0,2021-03-31,PG-13,113.0,English,"Sci-Fi, Action, Adventure",75.0,392,91.0,3873,-16.0,-14.505,0.457
+Sausage Party,2016.0,2016-08-12,R,89.0,English,"Comedy, Adventure, Animation",82.0,237,50.0,3866,32.0,-5.456,0.316
+Jesus Revolution,2023.0,2023-02-24,PG-13,119.0,English,"Drama, History",54.0,56,99.0,3829,-45.0,-22.288,0.672
+Dirty Harry,1971.0,1971-01-01,R,103.0,English,"Action, Mystery & Thriller, Crime, Drama",89.0,53,90.0,3812,-1.0,-10.953,0.226
+Coco,2017.0,2017-11-22,PG,109.0,English,"Kids & Family, Comedy, Adventure, Music, Animation",97.0,358,94.0,3809,3.0,-1.959,0.177
+Finding Dory,2016.0,2016-06-17,PG,97.0,English,"Kids & Family, Comedy, Adventure, Animation",94.0,340,84.0,3804,10.0,2.862,0.225
+Mystery Men,1999.0,1999-07-22,PG-13,120.0,English,"Fantasy, Comedy, Action",59.0,103,57.0,3801,2.0,-11.029,0.342
+Ant-Man and The Wasp: Quantumania,2023.0,2023-02-17,PG-13,124.0,English,"Action, Adventure, Fantasy, Comedy",46.0,415,81.0,3787,-35.0,-16.508,0.705
+Moana 2,2024.0,2024-11-27,PG,100.0,English,"Kids & Family, Musical, Comedy, Adventure, Animation",61.0,246,85.0,3785,-24.0,-8.291,0.115
+Planet 51,2009.0,2009-11-20,PG,91.0,English,"Kids & Family, Comedy, Adventure, Sci-Fi, Animation",23.0,107,40.0,3744,-17.0,-0.813,0.112
+A Minecraft Movie,2025.0,2025-04-04,PG,101.0,English,"Kids & Family, Fantasy, Adventure, Comedy, Action",47.0,196,84.0,3743,-37.0,-8.984,0.403
+Season of the Witch,2011.0,2011-01-07,PG-13,95.0,English,"Action, Adventure, Fantasy",11.0,122,31.0,3646,-20.0,-9.335,0.349
+Sicario,2015.0,2015-09-18,R,121.0,English,"Mystery & Thriller, Crime, Drama, Action",91.0,279,85.0,3629,6.0,-11.435,0.182
+Mission: Impossible - Fallout,2018.0,2018-07-27,PG-13,147.0,English,"Action, Adventure, Mystery & Thriller",98.0,444,89.0,3616,9.0,-10.665,0.287
+Incredibles 2,2018.0,2018-06-15,PG,118.0,English,"Kids & Family, Comedy, Adventure, Action, Animation",93.0,384,84.0,3592,9.0,-5.23,0.199
+Crocodile Dundee,1986.0,1986-09-26,PG-13,97.0,English,Comedy,89.0,38,60.0,3583,29.0,-18.903,0.251
+Cruella,2021.0,2021-05-28,PG-13,134.0,English,"Comedy, Kids & Family",75.0,415,97.0,3580,-22.0,-23.779,0.419

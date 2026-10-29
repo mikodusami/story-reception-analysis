@@ -119,3 +119,17 @@ def test_book_post_features():
     assert P['award wins'].tolist() == [1, 0, 0, 1]
     assert P['award nominations'].tolist() == [2, 0, 0, 0]
     assert P['log ratings count'].iloc[1] == pytest.approx(math.log1p(100))
+
+
+def test_fixed_vocab_reproduces_training_columns():
+    from story_reception.features import vocab_from_columns
+    full = pre_release_features(FILMS, min_genre_films=1, top_languages=3)
+    one = FILMS.iloc[[1]]                                     # a single new film
+    fixed = pre_release_features(one, genre_vocab=vocab_from_columns(full.columns, 'genre: '),
+                                 language_vocab=vocab_from_columns(full.columns, 'language: ')[1:])
+    assert list(fixed.columns) == list(full.columns)
+    pd.testing.assert_frame_equal(fixed, full.iloc[[1]], check_dtype=False)
+
+    books_full = book_features(BOOKS, min_genre_books=1)
+    books_one = book_features(BOOKS.iloc[[2]], genre_vocab=vocab_from_columns(books_full.columns, 'genre: '))
+    assert list(books_one.columns) == list(books_full.columns)
