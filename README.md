@@ -2,11 +2,13 @@
 
 ### Critic and audience reception of films and books
 
+**[Try the live app →](https://story-reception-analysis-snkxqoqkru2mpmf66crhfq.streamlit.app/)** Paste a review to predict its rating, see whether critics and audiences will split on a film, or check how divisive a book is.
+
 Do the words in a review predict the rating it gives, and where do critics and audiences disagree? This project scrapes about 180,000 reviews from **Goodreads** (books) and **Rotten Tomatoes** (films, with separate critic and audience voices), cleans them, and tests each claim on data the model has never seen.
 
 ## The app
 
-An interactive Streamlit app puts all three models in front of a visitor (`app/`, run it with `make app`):
+An interactive Streamlit app puts all three models in front of a visitor. It's [live on Streamlit Community Cloud](https://story-reception-analysis-snkxqoqkru2mpmf66crhfq.streamlit.app/); run it locally with `make app`.
 
 - **Review → rating:** paste a review, get the predicted star rating, with each word shaded by how much it pushed the rating up or down. Example reviews include the cases the model gets wrong (negation, sarcasm).
 - **Critics vs. audiences:** look up one of 300 well-known films (predictions are out-of-fold, so the model never saw the film it's predicting) or describe a new one, and see the predicted critic–audience gap and the chance of a 20+ point split.
